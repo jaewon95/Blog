@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>We talk - 우리들의 이야기</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" />
+</head>
+<body>
+	<!-- 공통 header -->
+	<th:block th:include="include/header"></th:block>
+	
+	<div class="aticle">
+		<div class="container">
+			<form action="/registerPro" method="post">
+				<div class="col-md-6">
+					<input class="form-control" placeholder="id" name="act_id">
+					<input class="form-control" placeholder="pw" name="act_pw">
+					<input type="submit" value="회원가입" class="registerBtn"> 
+				</div>
+			</form>
+		</div>
+	</div>
+	
+	<script th:inline="javascript">
+		// /*[[${모델 데이터}]]*/ {없는 경우 기본값}
+		// /*[[${모델 데이터}]]*/ [없는 경우 기본값]
+		
+		let result = /*[[${registerFail}]]*/{};
+		 if(result != null) {
+			 alert("아이디가 중복입니다");
+		 }
+
+	</script>
+</body>
+</html>

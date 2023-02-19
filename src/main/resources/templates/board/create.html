@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>We talk - 우리들의 이야기</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"rel="stylesheet"integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"crossorigin="anonymous">
+
+
+</head>
+
+<style>
+	.section {
+		margin: 20px;
+	}
+	
+	.article {
+		box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+		border: 1px solid lightgray;
+		border-radius: 10px;
+		padding: 20px;
+	}
+	
+	.article > form > .form-control {
+		margin-bottom: 20px;
+	}
+	
+	.btn-area {
+		display: flex;
+		justify-content: flex-end;
+	}
+	
+	.btn-area > button {
+		margin: auto 3px;
+	}
+	
+	.writerInput {
+		background-color: lightgray;
+		pointer-events : none;
+	}
+	
+	
+</style>
+
+<body>
+
+	<!-- 공통 header -->
+	<th:block th:include="include/header"></th:block>
+	
+	<div class="section"> <!-- header.html 공통 css  -->
+		<div class="container"> <!-- header.html 공통 css 적용 -->
+			<div class="article">
+			
+			<form action="/user/createPro" method="post">
+			 	작성자<input class="form-control writerInput" th:name="bwriter" th:value="${session.sessionId}" readonly="readonly">
+				제목<input class="form-control" th:name="btitle" placeholder="제목">
+				본문<textarea class="form-control" name="bcontent" rows="20" style="resize: none;"></textarea>
+				<div class="btn-area">
+					<button class="btn btn-outline-secondary cancel">취소</button>
+					<button class="btn btn-outline-secondary" type="submit">작성완료</button>
+				</div>
+			</form>
+			</div>
+			
+		</div>
+	</div>
+
+<script>					   
+	const cancelBtn = document.querySelector('.cancel'); // 뒤로가기 버튼
+	
+	// 뒤로가기 
+	cancelBtn.addEventListener('click',function() {
+		history.back();
+	});
+	                              
+	
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"crossorigin="anonymous"></script>
+
+</body>
+</html>
