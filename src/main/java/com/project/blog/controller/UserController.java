@@ -54,24 +54,13 @@ public class UserController {
 		session.setAttribute("sessionId", service.login(act).getAct_id()); // 세션에 로그인한 유저의 id 값 넣어주기
 		
 		
-		// 페이징 처리에 필요한 부분
-		PageMaker pageMaker = new PageMaker();
-		pageMaker.setCri(cri);
-		System.out.println(" : " + pageMaker.getCri().toString()); // ?page=1 또는 perPageNum=10 이렇게 요청을 넣을 수 있음 
-		
-		pageMaker.setTotalCount(boardService.totalCount()); // 전체페이지의 수
-		model.addAttribute("pageMaker", pageMaker);
-		
-		System.out.println(pageMaker.toString());
-		
-		
 		if(login != null) {
 			System.out.println("로그인 성공");
 			session.setAttribute("loginSession", service.login(act));
 			model.addAttribute("listAll", boardService.listAll(cri));
 			return "redirect:/";
 		} else {
-			System.out.println("로그인 ㄴㄴㄴㄴㄴ");
+			System.out.println("로그인 실패");
 			return "redirect:/";
 		}
 		

@@ -1,7 +1,5 @@
 package com.project.blog.controller;
 
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,12 +7,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import com.project.blog.entity.Account;
 import com.project.blog.entity.Board;
 import com.project.blog.entity.Criteria;
 import com.project.blog.entity.PageMaker;
+import com.project.blog.entity.Reply;
 import com.project.blog.service.AccountService;
 import com.project.blog.service.BoardService;
+import com.project.blog.service.ReplyService;
 
 @Controller
 public class BoardController {
@@ -24,6 +23,9 @@ public class BoardController {
 	
 	@Autowired
 	private AccountService accountService;
+	
+	@Autowired
+	private ReplyService replyService;
 	
 	// 글전체조회
 	@GetMapping("/")
@@ -48,9 +50,15 @@ public class BoardController {
 	
 	// 글상세조회
 	@GetMapping("/user/detail/{bid}")
-	public String detail(@PathVariable("bid") int bid,Board board, Model model) {
+	public String detail(@PathVariable("bid") int bid,Board board, Model model,
+						Reply rp) {
 		model.addAttribute("selectOne", boardService.selectOne(bid));
 		System.out.println(boardService.selectOne(bid).toString());
+		
+		// 댓글
+		model.addAttribute("replyData", replyService.ReplyListAll(bid));
+		
+		System.out.println(replyService.ReplyListAll(bid));
 		return "board/detail";
 	}
 	
@@ -93,7 +101,7 @@ public class BoardController {
 		return "redirect:/";
 	}
 	
-	// 검색페이지
+	// 검색페이지 이동
 	@GetMapping("/search")
 	public String searchPageGo() {
 		return "board/searchPage";

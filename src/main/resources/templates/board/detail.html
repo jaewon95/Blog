@@ -13,8 +13,7 @@
 	}
 	
 	.article {
-		box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-		border: 1px solid lightgray;
+		border: 2px solid lightgray;
 		border-radius: 10px;
 		padding: 20px;
 	}
@@ -34,8 +33,68 @@
 	
 	.btn-area > button,
 	.btn-area > a {
-		margin: auto 3px;
+		margin: 3px 3px !important;
 	}
+	
+	.cancel {
+		margin: 10px 10px !important;
+	}
+	
+	.replyWapper {
+		position: relative;
+	}
+	
+	.replyWapper > .replyArea {
+		position: absolute;
+		top: 85px;
+		right: 10px;
+	}
+	
+	.noLoginTextarea {
+		pointer-events : none;
+	}
+	
+	
+	
+	
+	
+	/* 댓글 */
+	
+	.replytextWrapper {
+		margin-top: 10px;
+		border: 1px solid lightgray;
+		border-radius: 10px;
+		padding: 5px;
+		
+	}
+	
+	.replyTextarea {
+		
+		height: auto;
+		padding: 10px;
+		
+	}
+	
+	.rpUserInfo {
+		font-weight: bold;
+		display: flex;
+		margin: 0px 3px;
+		flex-direction: column;
+	}
+	
+	.rpBtnArea {
+		display:flex;
+		justify-content: flex-end;
+	}
+	
+	.rpBtnArea > a {
+		margin-left: 5px;
+	}
+
+	
+	
+	/*  ===========================  */
+	
 </style>
 <body>
 	<!-- 공통 header -->
@@ -45,50 +104,129 @@
 		<div class="container"> <!-- header.html 공통 css 적용 -->
 			<div class="article">
 				
-			 	작성자<input class="form-control inputArea" th:name="bwriter" th:value = "${selectOne.bwriter}" readonly="readonly">
-				제목<input class="form-control inputArea" name="btitle" th:value = "${selectOne.btitle}" readonly="readonly">
-				본문<textarea class="form-control inputArea" th:text="${selectOne.bcontent}" name="bcontent" rows="20" style="resize: none;"></textarea>
+			 	<span>작성자</span>
+			 	<input class="form-control inputArea" th:name="bwriter" th:value = "${selectOne.bwriter}" readonly="readonly">
+			 	<span>제목</span>						
+				<input class="form-control inputArea" name="btitle" th:value = "${selectOne.btitle}" readonly="readonly">
+				<span>본문</span>
+				<textarea class="form-control inputArea" th:text="${selectOne.bcontent}" name="bcontent" rows="20" style="resize: none;"></textarea>				
+				
 				<div class="btn-area">
-					<!-- 다른 유저의 게시글을 선택했을때 -->
-					<th:block th:if="${selectOne.bwriter != session.sessionId}">
-						<button class="btn btn-outline-secondary cancel">취소</button>
+					<!-- 내 글 X. 다른 유저의 게시글을 선택했을때 -->
+					<th:block th:if="${selectOne.bwriter != session.sessionId}" class="replyArea">
+						<button class="btn btn-outline-secondary cancel">뒤로가기</button>
 					</th:block>
 					
 					<!-- 내가 작성한 게시글을 선택했을때 -->
 					<th:block th:if="${selectOne.bwriter == session.sessionId}">
-						<button class="btn btn-outline-secondary cancel">취소</button>
+						<button class="btn btn-outline-secondary cancel">뒤로가기</button>
 						<a th:href="@{/user/update/{bid} (bid = ${selectOne.bid})}" class="btn btn-outline-success updateBtn" type="button">수정</a>
 						<a class="btn btn-outline-danger deleteBtn" type="button">삭제</a>
 					</th:block>
 					
 				</div>
-			</div>
-			
+				
+				<span>댓글</span>
+				<!-- 댓글작성X : 로그인 X 비회원 상태에서 다른 유저의 게시글을 선택했을때 -->
+				<th:block th:if="${session.loginSession == null}" >
+					<div class="replyWapper">
+					<textarea class="form-control noLoginTextarea" name="br_content" rows="5" readonly style="resize: none;">댓글을 작성하려면 로그인이 필요합니다</textarea>
+					<div class="replyArea">
+					</div>
+				</div>
+				</th:block>
+					
+				<!-- 댓글작성O : 로그인 O 게시글을 선택했을때 -->
+				<th:block th:if="${session.loginSession != null}">
+					<form th:action="@{/user/createReplyPro/{bid} (bid = ${selectOne.bid})}" method="post">
+						<div class="replyWapper">
+							<textarea class="form-control" name="br_content" rows="5" style="resize: none;"></textarea>
+							<div class="replyArea">
+								<button type="submit" class="btn btn-outline-secondary createReply">댓글작성</button>
+							</div>
+						</div>
+					</form>
+				</th:block>
+				
+				<!-- 댓글 -->
+				<!-- 다른 USER가 작성한 댓글 -->
+				<th:block th:each="data : ${replyData}">
+					<th:block th:if="${data.br_writer != session.sessionId}">
+						<div class="replytextWrapper" th:block>
+							<div class="rpUserInfo">
+								<div>작성자 : <span th:text="${data.br_writer}"></span></div> 
+								<div>작성일 : <span th:text="${data.br_date}"></span></div>
+							</div>
+							<div th:text=${data.br_content} class="col-md-12 replyTextarea"></div>
+						</div>
+					</th:block>
+				</th:block>
+				
+				<!-- 자신이 작성한 댓글 -->
+				<th:block th:each="data : ${replyData}">
+					<th:block th:if="${data.br_writer == session.sessionId}">
+						<div class="replytextWrapper" th:block>
+							<div class="rpUserInfo">
+								<div>작성자 : <span th:text="${data.br_writer}"></span></div> 
+								<div>작성일 : <span th:text="${data.br_date}"></span></div>
+							</div>
+							<div th:text=${data.br_content} class="col-md-12 replyTextarea"></div>
+							<div class="rpBtnArea">
+								<a type="button" class="btn btn-outline-secondary replyUpdate">댓글수정</a>
+								<a th:href="@{/user/delete/{br_id} (br_id = ${data.br_id})}" type="button" onclick="replyDelete" class="btn btn-outline-danger replyDelete">댓글삭제</a>
+							</div>
+						</div>
+					</th:block>
+				</th:block>
+				
+			</div> <!-- article END -->
 		</div>
 	</div>
 
 <script th:inline="javascript">
 
 	let bid = /*[[${selectOne.bid}]]*/{};
+	let sessionValue = /*[[${session.sessionId}]]*/{};
+	let bwriter = /*[[${selectOne.bwriter}]]*/{};
 	
 	const cancelBtn = document.querySelector('.cancel'); // 뒤로가기 버튼
 	const deleteBtn = document.querySelector('.deleteBtn'); // 삭제버튼
+	let replyDelete = document.querySelector('.replyDelete'); // 댓글삭제버튼
+	
+	
+	
+	
 	
 	// 뒤로가기 처리 
+	if(sessionValue == bwriter || sessionValue != bwriter) {
 	cancelBtn.addEventListener('click',function() {
 		history.back();
 	});
+	} 
 	
 	// 삭제 처리
-	deleteBtn.addEventListener('click',function(event){
+	if(sessionValue == bwriter) {
+		deleteBtn.addEventListener('click',function(){
+			
+			let alert = confirm("게시글을 삭제하시겠습니까?");
+	        if(alert == true){
+				location.href="/delete/" +bid;
+	        }else{
+				// 취소
+	        }
+		});
+	}; // 삭제처리 END
+	
+	
+
+					   
+	 
+	 
 		
-		let alert = confirm("게시글을 삭제하시겠습니까?");
-        if(alert == true){
-			location.href="/delete/" +bid;
-        }else{
-			// 취소
-        }
-	});
+	 
+
+
+
 	
 
 </script>
