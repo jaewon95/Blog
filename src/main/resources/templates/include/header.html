@@ -1,10 +1,12 @@
 <!doctype html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+<!-- 폰트어썸 cdn -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" />
 
 
-<th:block th:fragment="main-header">
-<!-- fragment를 사용해도 무방함 -->
 <style>
+
+	/* 헤더 내용 */
 	.header2 {
         width: 100vw;
         background-color: lightgray;
@@ -17,8 +19,6 @@
         width: 1200px;
         padding: 10px 20px;
         display: flex;
-
-        
     }
 
     .login {
@@ -58,9 +58,64 @@
     	margin: 0px 5px 0px 0px;
     }
     
-
-
-    /* nav 끝 */
+    .userArea {
+    	display: flex;
+    	height: 40px;
+    	align-items: center;
+    }
+    
+    .userImg {
+    	margin-right:10px;
+    	display: block;
+    	border-radius: 50%;
+    	width: 40px !important;
+    	height: 40px !important;
+    	background-color: black;
+    }
+    
+    /*    */
+    
+    
+    
+    /* 검색 icon */
+    
+    .iconArea > a {
+    	text-decoration: none;
+    	color: black;
+    }
+    
+    
+    
+    .icon {
+    	display: flex;
+    	height: 40px;
+    	width: 40px;
+    	justify-content: center;
+    	align-items: center;
+    }
+    
+    .icon:hover {
+    	background-color: white;
+    	border-radius: 50%;
+    	cursor: pointer;
+    }
+    
+    /*  */
+    
+    
+    
+    
+    /* 드롭다운 */
+    
+    .dropdown-menu {
+    	left: -120px !important;
+    }
+    
+    /*        */
+    
+    
+   
+    
     
     
     
@@ -96,7 +151,9 @@
 	.logoImg>img {
 		width: 590px;
 	}
-	/* modal 끝 */
+	/*    */
+	
+	
 	
 	/* 본문 공통 css 폭 */ 
 	.section {
@@ -109,6 +166,8 @@
 		margin: 0px;
 		padding: 0px;
 	}
+	
+	
 </style>
 
 
@@ -116,14 +175,11 @@
 <div class="header2 bg-light">
        <nav class="navbar bg-light">
            <a class="navbar-brand logo" href="/">
-              <span class="logo">𝔀𝓮 𝓽𝓪𝓵𝓴</span>
+              <span class="logo" style="color:black;">𝔀𝓮 𝓽𝓪𝓵𝓴</span>
            </a>
            <div class="info-area">
-              <span>
-               <div class="input-group search">
-                   <input type="text" class="form-control" placeholder="검색" aria-label="Recipient's username" aria-describedby="button-addon2">
-                   <button class="btn btn-outline-secondary btn2" type="button" id="button-addon2">검색</button>
-               </div>
+              <span class="iconArea">
+              <a th:href="@{/search}"><i class="fa-sharp fa-solid fa-magnifying-glass fa-1x icon"></i></a>
               </span>
               <!-- 세션에 값이 없을 경우 -->
               <th:block th:if="${session.loginSession == null} ">
@@ -134,16 +190,35 @@
               
               <!-- 세션에 값이 있을 경우 -->
               <th:block th:if="${session.loginSession != null} ">
-              	<span style="margin-left: 10px; margin-right: 10px;">
+              	<span class="userArea" style="margin-left: 10px; margin-right: 10px;">
+              		<span class="userImg"></span>
               		[[${session.loginSession.act_id}]]님
               	</span>
+              	
+              	
               	<span class="loginSessionOn">
               		<input class="btn btn-outline-success registerBoard" type="button" value="글쓰기">
-              		<button class="btn btn-outline-secondary logout">로그아웃</button>
               	</span>
-              	<span>
-
-              	</span>
+              	
+              	<!-- dropdown -->	
+				<div class="btn-group">
+				  <button type="button" class="btn btn-outline-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+				   
+				  </button>
+				  <ul class="dropdown-menu">
+				    <li class="dropdown-item logout">로그아웃</li>
+				    <li><a class="dropdown-item" href="#">설정</a></li>
+				    <li><a class="dropdown-item" href="#">설정1</a></li>
+				   
+				  </ul>
+				</div>
+			   <!--      -->
+              	
+              	
+              	
+              	
+               
+			    
               </th:block>
           </div>    
        </nav>
@@ -177,10 +252,7 @@
 	</div>
 	</form>
 	<!-- Modal END-->
-	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
-		integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
-		crossorigin="anonymous"></script>
+
 
 
 	<script th:inline="javascript">
