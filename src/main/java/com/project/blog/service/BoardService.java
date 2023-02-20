@@ -15,8 +15,7 @@ public class BoardService {
 	@Autowired
 	private BoardMapper mapper;
 	
-	// 글전체조회
-
+	// 글전체조회 - 페이징
 	public List<Board> listAll(Criteria cri){
 		return mapper.listAll(cri);
 	}

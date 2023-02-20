@@ -15,11 +15,11 @@ import com.project.blog.entity.Criteria;
 @Mapper
 public interface BoardMapper {
 	
-	// 글전체조회
+	// 글전체조회 - 페이징
 	@Select("SELECT * FROM board ORDER BY bid desc"
 			+ " limit #{pageStart},#{perPageNum}")
 	List<Board> listAll(Criteria cri); 
- 
+
 	// 글선택조회
 	@Select("SELECT * FROM board WHERE bid = #{bid}")
 	Board selectOne(int bid);
