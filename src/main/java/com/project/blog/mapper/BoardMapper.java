@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import com.project.blog.entity.Board;
 import com.project.blog.entity.Criteria;
@@ -16,8 +17,9 @@ import com.project.blog.entity.Criteria;
 public interface BoardMapper {
 	
 	// 글전체조회 - 페이징
-	@Select("SELECT * FROM board ORDER BY bid desc"
-			+ " limit #{pageStart},#{perPageNum}")
+	@Select(  " SELECT * FROM board WHERE bdelete_yn=0 "
+			+ " ORDER BY bid desc "
+			+ " limit #{pageStart},#{perPageNum} " )
 	List<Board> listAll(Criteria cri); 
 
 	// 글선택조회
@@ -33,11 +35,17 @@ public interface BoardMapper {
 	int update(Board board);
 	
 	// 글삭제
-	@Delete("DELETE FROM board WHERE bid = #{bid}")
-	int delete(int bid);
+	@Update("UPDATE board SET bdelete_yn = 1 WHERE bid = #{bid}")
+	int delete(Board board);
 	
 	@Select("SELECT count(*) from board")
 	int totalCount();
 	
+	// 검색 전체조회
+	@Select(  "SELECT * FROM board "
+			+ "WHERE bdelete_yn = 0 AND "
+			+ "bwriter like CONCAT('%',#{keyword},'%')"
+			)
+	List<Board> SearchListAll(Board board);
 	
 }

@@ -31,9 +31,7 @@ public class BoardController {
 	@GetMapping("/")
 	public String mainPage(Criteria cri,Model model) {
 		
-		
 		model.addAttribute("listAll", boardService.listAll(cri));
-		
 		
 		// 페이징 처리에 필요한 부분
 		PageMaker pageMaker = new PageMaker();
@@ -96,8 +94,10 @@ public class BoardController {
 	
 	// 글삭제
 	@GetMapping("/delete/{bid}")
-	public String deletePro(@PathVariable("bid") int bid) {
-		boardService.delete(bid);
+	public String deletePro(@PathVariable("bid") int bid, Board board) {
+		System.out.println(board.toString());
+		board.setBdelete_yn(true);
+		boardService.delete(board);
 		return "redirect:/";
 	}
 	
@@ -106,6 +106,7 @@ public class BoardController {
 	public String searchPageGo() {
 		return "board/searchPage";
 	}
+	
 	
 }
 

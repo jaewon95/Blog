@@ -148,7 +148,7 @@
 					</form>
 				</th:block>
 				
-				<!-- 댓글 -->
+				<!-- 댓글 권한 -->
 				<!-- 다른 USER가 작성한 댓글 -->
 				<th:block th:each="data : ${replyData}">
 					<th:block th:if="${data.br_writer != session.sessionId}">

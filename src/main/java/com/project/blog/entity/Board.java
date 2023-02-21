@@ -12,5 +12,9 @@ public class Board {
 	private String bwriter;
 	private String bcontent;
 	private Date bdate;
+	private boolean bdelete_yn;
+	
+	// 검색필터
+	private String keyword;
 	
 }

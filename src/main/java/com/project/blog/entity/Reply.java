@@ -12,5 +12,6 @@ public class Reply {
 	private String br_writer;
 	private String br_content;
 	private Date br_date;
+	private boolean br_delete_yn;
 	
 }

@@ -2,6 +2,7 @@ package com.project.blog.service;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Select;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -36,12 +37,17 @@ public class BoardService {
 	}
 	
 	// 글삭제
-	public int delete(int bid) {
-		return mapper.delete(bid);
+	public int delete(Board board) {
+		return mapper.delete(board);
 	}
 	
 	public int totalCount() {
 		return mapper.totalCount();
+	};
+	
+	// 검색 전체조회
+	public List<Board> SearchListAll(Board board) {
+		return mapper.SearchListAll(board);
 	};
 
 }
