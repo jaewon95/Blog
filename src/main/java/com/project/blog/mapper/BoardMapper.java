@@ -44,7 +44,9 @@ public interface BoardMapper {
 	// 검색 전체조회
 	@Select(  "SELECT * FROM board "
 			+ "WHERE bdelete_yn = 0 AND "
-			+ "bwriter like CONCAT('%',#{keyword},'%')"
+			+ "bwriter like CONCAT('%',#{keyword},'%') OR "
+			+ "btitle like CONCAT('%',#{keyword},'%') OR "
+			+ "bcontent like CONCAT('%',#{keyword},'%')"
 			)
 	List<Board> SearchListAll(Board board);
 	

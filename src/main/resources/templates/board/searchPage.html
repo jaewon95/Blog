@@ -48,6 +48,7 @@
 	/* 댓글 전체조회 결과 */
 	
 	.showSearch {
+		padding: 3px;
 		border-radius: 0.375rem;
 		margin-top: 20px;
 		border : 2px solid #ced4da;
@@ -71,6 +72,9 @@
 	
 	.showInfo3 {
 		padding: 20px;
+		pointer-events : none;
+		border: none;
+		padding-right: 50px;
 	}
 	
 	.boardBid {
@@ -102,7 +106,7 @@
 			<!-- 전체조회 뿌려주기 -->
 			<div class="repeat"></div>
 			
-			<!-- 임시. 나중에 지워야함. 검색결과 보여줄곳. 이 폼을 반복해줘야함 -->
+			<!-- 임시. 나중에 지워야함 검색결과 보여줄곳. 이 폼을 반복해줘야함 -->
 			<div class="showSearch">
 				<div class="showInfo1">
 					<span>게시글제목</span>
@@ -148,7 +152,7 @@
 							str += "<span><a href='/user/detail/"+ item.bid + "' class='btn btn-outline-secondary detailBtn'>상세조회</a></span>"; 
 							str += "</div>";
 							str += "</div>";
-							str += "<div class='showInfo3'>" + item.bcontent + "</div>";
+							str += "<input class='showInfo3' value='"+ item.bcontent +"' maxlength='12'>"; 
 							str += "</div>";
 							$('.repeat').prepend(str); // prepend(변수담기), prepend, append 검색해보기
 						})
