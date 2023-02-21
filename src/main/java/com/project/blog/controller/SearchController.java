@@ -26,7 +26,9 @@ public class SearchController {
 		Board board = new Board();
 		board.setKeyword(keyword);
 		
-		System.out.println(boardService.SearchListAll(board).toString());
+		
+		
+		System.out.println("키워드 : " + boardService.SearchListAll(board).toString());
 		boardService.SearchListAll(board);
 		
 		
