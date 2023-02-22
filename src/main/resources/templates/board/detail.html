@@ -173,7 +173,7 @@
 							<div th:text=${data.br_content} class="col-md-12 replyTextarea"></div>
 							<div class="rpBtnArea">
 								<a type="button" class="btn btn-outline-secondary replyUpdate">댓글수정</a>
-								<a th:href="@{/user/delete/{br_id} (br_id = ${data.br_id})}" type="button" onclick="replyDelete" class="btn btn-outline-danger replyDelete">댓글삭제</a>
+								<a th:href="@{/user/reDelete/{br_id} (br_id = ${data.br_id})}" type="button" onclick="replyDelete" class="btn btn-outline-danger replyDelete">댓글삭제</a>
 							</div>
 						</div>
 					</th:block>
@@ -204,13 +204,13 @@
 	});
 	} 
 	
-	// 삭제 처리
+	// 게시글 삭제 처리
 	if(sessionValue == bwriter) {
 		deleteBtn.addEventListener('click',function(){
 			
 			let alert = confirm("게시글을 삭제하시겠습니까?");
 	        if(alert == true){
-				location.href="/delete/" +bid;
+				location.href="/user/delete/" +bid;
 	        }else{
 				// 취소
 	        }

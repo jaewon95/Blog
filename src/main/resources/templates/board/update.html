@@ -42,7 +42,7 @@
 	<div class="section"> <!-- header.html 공통 css  -->
 		<div class="container"> <!-- header.html 공통 css 적용 -->
 			<div class="article">
-			
+				<th:block th:if="${updateData.bwriter == session.sessionId}">
 				<form th:action="@{/user/updatePro/{bid} (bid = ${updateData.bid})}" method="post">
 					
 				 	작성자<input class="form-control inputArea" th:name="bwriter" th:value = "${updateData.bwriter}">
@@ -50,9 +50,14 @@
 					본문<textarea class="form-control inputArea" th:text="${updateData.bcontent}" name="bcontent" rows="20" style="resize: none;"></textarea>
 					<div class="btn-area">
 						<a class="btn btn-outline-secondary cancel">취소</a>
-						<button class="btn btn-outline-secondary" type="submit">수정완료</button>
+							<button class="btn btn-outline-secondary" type="submit">수정완료</button>
 					</div>
 				</form>
+				</th:block>
+				<th:block th:if="${updateData.bwriter != session.sessionId}">
+					올바른 접근이 아닙니다
+				</th:block>
+				
 			</div>
 			
 		</div>

@@ -21,15 +21,11 @@ public class SearchController {
 	private BoardService boardService;
 	
 	@PostMapping("/searchPro")
-	public List<Board> listAll(@RequestParam String keyword) {
+	public List<Board> listAll(@RequestParam String keyword, Board board) {
 		
-		Board board = new Board();
 		board.setKeyword(keyword);
 		
-		
-		
-		System.out.println("키워드 : " + boardService.SearchListAll(board).toString());
-		boardService.SearchListAll(board);
+		System.out.println("키워드 목록 " + boardService.SearchListAll(board).toString()); 
 		
 		
 		return boardService.SearchListAll(board);

@@ -1,5 +1,7 @@
 package com.project.blog.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -56,7 +58,7 @@ public class BoardController {
 		// 댓글
 		model.addAttribute("replyData", replyService.ReplyListAll(bid));
 		
-		System.out.println(replyService.ReplyListAll(bid));
+		System.out.println("해당 글의 댓글정보 : " + replyService.ReplyListAll(bid));
 		return "board/detail";
 	}
 	
@@ -77,7 +79,7 @@ public class BoardController {
 	
 	// 글수정
 	@GetMapping("/user/update/{bid}")
-	public String update(@PathVariable("bid") int bid ,Board board, Model model) {
+	public String update(@PathVariable("bid") int bid ,Board board, Model model,HttpSession session) {
 		model.addAttribute("updateData", boardService.selectOne(bid));
 		return "board/update";
 	}
@@ -93,7 +95,7 @@ public class BoardController {
 	}
 	
 	// 글삭제
-	@GetMapping("/delete/{bid}")
+	@GetMapping("user/delete/{bid}")
 	public String deletePro(@PathVariable("bid") int bid, Board board) {
 		System.out.println(board.toString());
 		board.setBdelete_yn(true);

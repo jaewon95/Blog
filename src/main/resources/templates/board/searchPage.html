@@ -99,25 +99,13 @@
 		<div class="section"> <!-- header.html 공통 css  -->
 			<div class="container"> <!-- header.html 공통 css 적용 -->
 				<div class="searchForm">
-					<input name="keyword" class="form-control searchArea col-md-8" placeholder="검색어를 입력하세요" >
+					<input name="keyword" class="form-control searchArea col-md-8" placeholder="글제목 or 글내용 or 작성자를 검색하세요 " >
 					<button class="searchBtn">검색</button>
 				</div>
 
 			<!-- 전체조회 뿌려주기 -->
 			<div class="repeat"></div>
 			
-			<!-- 임시. 나중에 지워야함 검색결과 보여줄곳. 이 폼을 반복해줘야함 -->
-			<div class="showSearch">
-				<div class="showInfo1">
-					<span>게시글제목</span>
-					<div class="showInfo2">
-						<span class="userImg"></span>
-						<span>작성자</span>
-						<span><a href="" class="btn btn-outline-secondary detailBtn">상세조회</a></span>
-					</div>
-				</div>
-				<div class="showInfo3">글내용</div>
-			</div>
 		<!-- ================================== -->
 		
 		
@@ -127,7 +115,9 @@
 		<script>
 		$(document).ready(function(){
 			
+			
 			let showSearch = $('.showSearch').val();
+			
 			
 			$('.searchBtn').click(function(){ 
 				// let titleVal = document.querySelector('.title').value; 와 같은코드
@@ -140,7 +130,9 @@
 					data: { 
 						keyword : keywordVal // key : value 묶음으로 보내기
 					}, 				
-					success: function(data){ // AjaxController에서 맨 마지막 메소드 return 넘겨준걸 data 로 받음 
+					success: function(data){ // AjaxController에서 맨 마지막 메소드 return 넘겨준걸 data 로 받음
+						$(".repeat").empty()
+						
 						data.forEach(function(item){
 							let str = "<div class='showSearch'>"; 
 							str += "<div class='showInfo1'>";
@@ -155,7 +147,7 @@
 							str += "<input class='showInfo3' value='"+ item.bcontent +"' maxlength='12'>"; 
 							str += "</div>";
 							$('.repeat').prepend(str); // prepend(변수담기), prepend, append 검색해보기
-						})
+						});
 					},
 					// 실패라면!
 					error: function(){
