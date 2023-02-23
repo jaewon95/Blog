@@ -71,7 +71,7 @@
 	}
 	
 	.replyTextarea {
-		
+		overflow:hidden;
 		height: auto;
 		padding: 10px;
 		
@@ -144,7 +144,7 @@
 				<th:block th:if="${session.loginSession != null}">
 					<form th:action="@{/user/createReplyPro/{bid} (bid = ${selectOne.bid})}" method="post">
 						<div class="replyWapper">
-							<textarea class="form-control" name="br_content" rows="5" style="resize: none;"></textarea>
+							<textarea class="form-control" name="br_content" rows="5" maxlength="200" style="resize: none;"></textarea>
 							<div class="replyArea">
 								<button type="submit" class="btn btn-outline-secondary createReply">댓글작성</button>
 							</div>
@@ -198,7 +198,7 @@
 	const cancelBtn = document.querySelector('.cancel'); // 뒤로가기 버튼
 	const deleteBtn = document.querySelector('.deleteBtn'); // 삭제버튼
 	const replyDelete = document.querySelector('.replyDelete'); // 댓글삭제버튼
-	
+	const replyUpdate = document.querySelectorAll('.replyUpdate'); // 댓글수정버튼
 	
 	// 뒤로가기 처리 
 	if(sessionValue == bwriter || sessionValue != bwriter) {
@@ -220,10 +220,18 @@
 		});
 	}; // 삭제처리 END
 	
-	
 
-					   
-	 
+					 
+	// 댓글 수정 버튼 클릭했을때 태그 변경해주기 div -> textarea
+	for (const button of replyUpdate) { // 중복 class명에서 원하는 요소 찾기
+		button.addEventListener('click', function(e){
+			console.log('dddd');
+			console.log(e.target.parentNode.parentNode); // 부모요소 찾기
+			document.querySelector('.replyTextarea').innerHTML='<textarea>바꿀거예용</textarea>';
+			
+		});	
+	}
+	
 	 
 		
 	 

@@ -67,7 +67,7 @@
 					</div>
 					<div class="pwCheck">
 						<div class="pwCheckShow">비밀번호를 입력해주세요. 최대 10글자</div>
-						<input type="password" class="form-control pwArea" maxlength="10" placeholder="비밀번호 입력" name="act_pw">
+						<input type="password" class="form-control pwArea" maxlength="10" placeholder="비밀번호 입력" name="act_pw" style="margin-bottom: 10px;">
 						<input type="password" class="form-control pwArea2" maxlength="10" placeholder="비밀번호 확인">
 					</div>
 					<input type="submit" value="회원가입" class="registerBtn btn btn-primary"> 
@@ -148,12 +148,7 @@
 								$('.idCheckShow').text("아이디를 입력해주세요. 최대 10글자");	
 								$('.idCheckShow').css("color","black");
 								document.querySelector('.registerBtn').removeAttribute("disabled");	
-							} else if(id == ''){ 
-								$('.idCheckShow').text("아이디 중복");
-								$('.idCheckShow').css("color","red");
-								document.querySelector('.registerBtn').setAttribute('disabled',true);
-							} 
-							 
+							}
 						} else { // 중복! 회원가입 불가능
 							$('.idCheckShow').text("아이디 중복");
 							$('.idCheckShow').css("color","red");
