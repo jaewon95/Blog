@@ -21,7 +21,6 @@ public class BoardInterceptor implements HandlerInterceptor {
 
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	
-	
 	void freeset(HttpServletResponse response) throws IOException {
 		response.setContentType("text/html; charset=utf-8");
 		PrintWriter printwriter = response.getWriter();
@@ -54,40 +53,20 @@ public class BoardInterceptor implements HandlerInterceptor {
 
 				return false; // 인터셉터 통과X
 			}
-		}
+		} // ==============================================================================
 		
-		// 게시글 삭제 접근 막기
-		if (url.contains("/user/delete/")) {
-			
-			
-			if(session.getAttribute("loginSession") == null) { // session 값이 비어있다면 접근 불가능
-				freeset(response);
-			} else {
-				System.out.println(session.getAttribute("loginSession").toString());
-			}
-			
-			// 세션값과 해당 게시글의 작성자가 다르다면 불가능하게 해야함
-			/*
-			 *  DB 부분을 수정해줘야함
-			 *  현재 Board 테이블과 Account 테이블은 연관관계가 아예 없는 상태 
-			 *  bwriter 과 act_id 를 연관관계 맺어줘야함
-			 *  이렇게 변경해주면 만약에 act_id 의 값과 session의 값이 다르다면 삭제가 불가능하도록
-			 *  변경해주는게 가능함
-			 *  
-			 *  if(session.getAttribute("sessionId") == ) ...?
-			 *  해당 글에 접근하기 전에 막는다..?
-			 *  
-			 *  해당글의 act_id 와 세션,,,?
-			 *  해당글의 act_id 를 어떻게 구하지 어아어아어아아아ㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏ
-			 *  
-			 *  현재 get매핑인거 ---> post매핑으로 변경하기
-			 * */
-			
-		}
+		
+		
+		
 
 		return HandlerInterceptor.super.preHandle(request, response, handler);
 	}
 
+	
+	
+	
+	
+	
 	// url 요청 들어간 후 처리
 	@Override
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
@@ -114,6 +93,16 @@ public class BoardInterceptor implements HandlerInterceptor {
 				}
 			}
 		}
+		
+		// 삭제처리 된 게시글 접근 막기
+		if(url.contains("/user/detail/")) {
+			Board boardSelectOne = (Board) modelAndView.getModelMap().getAttribute("selectOne");
+			System.out.println("인터셉터 detail"+boardSelectOne.toString()); 
+			if(boardSelectOne.isBdelete_yn() == true) {
+				freeset(response);
+			}
+		}
+	
 		
 		HandlerInterceptor.super.postHandle(request, response, handler, modelAndView);
 	}

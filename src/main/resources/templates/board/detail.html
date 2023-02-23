@@ -29,6 +29,8 @@
 	.btn-area {
 		display: flex;
 		justify-content: flex-end;
+		height: 45px;
+		align-items: center;
 	}
 	
 	.btn-area > button,
@@ -121,7 +123,9 @@
 					<th:block th:if="${selectOne.bwriter == session.sessionId}">
 						<button class="btn btn-outline-secondary cancel">뒤로가기</button>
 						<a th:href="@{/user/update/{bid} (bid = ${selectOne.bid})}" class="btn btn-outline-success updateBtn" type="button">수정</a>
-						<a class="btn btn-outline-danger deleteBtn" type="button">삭제</a>
+						<form class="boardDelete" th:action="@{/user/delete/{bid} (bid = ${selectOne.bid})}" method="post">
+							<a class="btn btn-outline-danger deleteBtn" type="button">삭제</a>
+						</form>
 					</th:block>
 					
 				</div>
@@ -173,7 +177,9 @@
 							<div th:text=${data.br_content} class="col-md-12 replyTextarea"></div>
 							<div class="rpBtnArea">
 								<a type="button" class="btn btn-outline-secondary replyUpdate">댓글수정</a>
-								<a th:href="@{/user/reDelete/{br_id} (br_id = ${data.br_id})}" type="button" onclick="replyDelete" class="btn btn-outline-danger replyDelete">댓글삭제</a>
+								<form th:action="@{/user/reDelete/{br_id} (br_id = ${data.br_id})}" method="post">
+									<button type="submit" class="btn btn-outline-danger replyDelete">댓글삭제</button>
+								</form>
 							</div>
 						</div>
 					</th:block>
@@ -191,10 +197,7 @@
 	
 	const cancelBtn = document.querySelector('.cancel'); // 뒤로가기 버튼
 	const deleteBtn = document.querySelector('.deleteBtn'); // 삭제버튼
-	let replyDelete = document.querySelector('.replyDelete'); // 댓글삭제버튼
-	
-	
-	
+	const replyDelete = document.querySelector('.replyDelete'); // 댓글삭제버튼
 	
 	
 	// 뒤로가기 처리 
@@ -207,11 +210,11 @@
 	// 게시글 삭제 처리
 	if(sessionValue == bwriter) {
 		deleteBtn.addEventListener('click',function(){
-			
 			let alert = confirm("게시글을 삭제하시겠습니까?");
+			
 	        if(alert == true){
-				location.href="/user/delete/" +bid;
-	        }else{
+			    document.querySelector('.boardDelete').submit();
+	        } else {
 				// 취소
 	        }
 		});

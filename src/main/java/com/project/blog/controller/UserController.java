@@ -1,6 +1,11 @@
 package com.project.blog.controller;
 
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.net.http.HttpResponse;
+
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +13,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.project.blog.entity.Account;
 import com.project.blog.entity.Board;
@@ -29,6 +37,27 @@ public class UserController {
 	@GetMapping("/register")
 	public String registerPage() {
 		return "user/register";
+	}
+	
+	// 회원가입 처리 - 아이디 중복검사
+	@PostMapping("/checkId")
+	@ResponseBody
+	public String checkId(@RequestParam("act_id") String id, Account act, HttpServletResponse response) throws IOException {
+		
+		System.out.println("야호 "+ id);
+		
+		act.setAct_id(id);
+		
+		int checkNum = service.userIdCheck(act);
+		
+		String result = null;
+		
+		if(checkNum == 1) {
+			result = "NO";
+		} else {
+			result = "YES";
+		}
+		return result;
 	}
 
 	// 회원가입 처리

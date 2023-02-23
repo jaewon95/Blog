@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+	<style>
+	
+		body {
+			padding: 0px 100px;
+			display: flex;
+			justify-content: center;
+		}
+		
+		button {
+			cursor: pointer;
+			background-color: orange;	
+			color: white;
+			border: none;
+			padding: 50px;
+			border-radius: 10px;
+			font-size: 70px;
+			width: 80%;
+			margin: 22px;
+		}	
+		
+		.errorImg {
+			width: 80%;
+		}
+		
+			
+	</style>
+<body>
+<img class="errorImg" src="https://uic.yonsei.ac.kr/main/images/errorpage.jpg">
+<button class="button">Home</button>
+
+<script>
+	const btn = document.querySelector('.button');
+	btn.addEventListener('click',function(){
+		location.href="/";
+	});
+</script>
+</body>
+</html>

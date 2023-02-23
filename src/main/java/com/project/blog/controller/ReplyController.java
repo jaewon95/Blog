@@ -45,11 +45,11 @@ public class ReplyController {
 	// 댓글 수정
 	
 	// 댓글 삭제
-	@GetMapping("user/reDelete/{br_id}")
+	@PostMapping("/user/reDelete/{br_id}")
 	public String deleteReply(@PathVariable("br_id") int br_id,Model model,HttpServletRequest request) {
 		int result = replyService.ReplyDelete(br_id);
 		if(result == 1) {
-			model.addAttribute("msg", "게시글 삭제 완료");
+			model.addAttribute("msg", "댓글 삭제 완료");
 			String referer = request.getHeader("Referer");
 			model.addAttribute("referer", referer);
 		    return "alert";

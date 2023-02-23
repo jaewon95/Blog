@@ -14,7 +14,8 @@ public class WebMvcConfig implements WebMvcConfigurer {
 		registry.addInterceptor(new BoardInterceptor())
 				.addPathPatterns("/user/create") // 해당 경로에 접근하기 전에 인터셉터가 가로챈다
 				.addPathPatterns("/user/update/*")
-				.addPathPatterns("/user/delete/*");
+				.addPathPatterns("/user/delete/*")
+				.addPathPatterns("/user/detail/*");
 				
 				
 //				.addPathPatterns("/user/delete/*");

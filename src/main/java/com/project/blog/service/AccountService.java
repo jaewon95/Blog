@@ -17,7 +17,12 @@ public class AccountService {
 		return accountMapper.login(act);
 	}
 	
-	// 계정 생성 중복검사
+	// 계정 생성 아이디 중복검사
+	public int userIdCheck(Account act) {
+		return accountMapper.userIdCheck(act);
+	}
+	
+	// 계정 생성 중복검사 (임시)
 	public int userCreateTest(Account act) {
 		int result = accountMapper.userCreateTest(act);
 		System.out.println("result :" + result);

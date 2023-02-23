@@ -95,9 +95,9 @@ public class BoardController {
 	}
 	
 	// 글삭제
-	@GetMapping("user/delete/{bid}")
+	@PostMapping("/user/delete/{bid}")
 	public String deletePro(@PathVariable("bid") int bid, Board board) {
-		System.out.println(board.toString());
+		System.out.println("글삭제 postmapping"+board.toString());
 		board.setBdelete_yn(true);
 		boardService.delete(board);
 		return "redirect:/";
