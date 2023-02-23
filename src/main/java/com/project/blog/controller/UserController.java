@@ -45,10 +45,8 @@ public class UserController {
 	public String checkId(@RequestParam("act_id") String id, Account act, HttpServletResponse response) throws IOException {
 		
 		System.out.println("야호 "+ id);
-		
 		act.setAct_id(id);
-		
-		int checkNum = service.userIdCheck(act);
+		int checkNum = service.userIdCheck(act); // 0이면 성공 
 		
 		String result = null;
 		
@@ -57,6 +55,7 @@ public class UserController {
 		} else {
 			result = "YES";
 		}
+		
 		return result;
 	}
 
@@ -64,8 +63,10 @@ public class UserController {
 	@PostMapping("/registerPro")
 	public String registerPro(Account act, Model model) {
 
-		int result = service.userCreateTest(act);
+		int result = service.userIdCheck(act);
+		
 		System.out.println("컨트롤러 값 확인 : " + result);
+		
 		if (result == 1) {
 			String msg = "회원가입 실패";
 			model.addAttribute("registerFail", msg);

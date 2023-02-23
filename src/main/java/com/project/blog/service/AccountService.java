@@ -19,6 +19,7 @@ public class AccountService {
 	
 	// 계정 생성 아이디 중복검사
 	public int userIdCheck(Account act) {
+		
 		return accountMapper.userIdCheck(act);
 	}
 	
