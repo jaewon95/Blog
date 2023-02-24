@@ -15,6 +15,7 @@ import lombok.Delegate;
 @Mapper
 public interface ReplyMapper {
 	
+
 	// 해당 글에 대한 댓글
 	@Select("SELECT bid, br_id, br_content, br_writer, date_format(br_date,'%Y-%m-%d') AS br_date FROM boardreply WHERE br_delete_yn = 0 and bid = ${bid}")
 	List<Reply> ReplyListAll(int bid);
@@ -25,7 +26,7 @@ public interface ReplyMapper {
 	
 	// 댓글 수정하기
 	@Update("UPDATE boardreply SET br_content = #{br_content} WHERE br_id = #{br_id}")
-	int ReplyUpdate(int br_id);
+	int ReplyUpdate(Reply reply);
 	
 	
 	// 댓글 삭제하기

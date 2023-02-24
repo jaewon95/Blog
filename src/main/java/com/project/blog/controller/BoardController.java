@@ -79,7 +79,7 @@ public class BoardController {
 	
 	// 글수정
 	@GetMapping("/user/update/{bid}")
-	public String update(@PathVariable("bid") int bid ,Board board, Model model,HttpSession session) {
+	public String update(@PathVariable("bid") int bid,Board board, Model model,HttpSession session) {
 		model.addAttribute("updateData", boardService.selectOne(bid));
 		return "board/update";
 	}

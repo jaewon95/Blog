@@ -31,18 +31,52 @@ public class ReplyController {
 	
 	// 댓글 생성
 	@PostMapping("/user/createReplyPro/{bid}")
-	public String createReply(@PathVariable("bid") int bid ,Reply rp, HttpSession session){
+	public String createReply(@PathVariable("bid") int bid ,Reply rp, HttpSession session, Model model, HttpServletRequest request){
 		// 댓글 : 댓글작성글번호 + id + br_content
 		rp.setBr_writer((String) session.getAttribute("sessionId"));
-		replyService.create(rp);
+		int result = replyService.create(rp);
 		
 		System.out.println("댓글 생성 후 : " + rp.toString()); 
+		
+		if(result == 1) {
+			model.addAttribute("msg", "댓글 작성 완료");
+			String referer = request.getHeader("Referer");
+			model.addAttribute("referer", referer);
+		    return "alert";
+		} 
+		
 		
 		return "redirect:/";
 		
 	}
-	
+
+
 	// 댓글 수정
+	@PostMapping("/user/ReplyPro/{br_id}")
+	public String replyUpdatePro(@PathVariable("br_id") int br_id, String br_content ,Reply reply, Model model, HttpServletRequest request) {
+		
+		System.out.println("=======================");
+		System.out.println("");
+		System.out.println(br_content);
+		System.out.println(reply.toString());
+		System.out.println("");
+		System.out.println("=======================");
+		
+		
+		int result = replyService.ReplyUpdate(reply);
+		
+		if(result == 1) {
+			model.addAttribute("msg", "댓글 수정 완료");
+			String referer = request.getHeader("Referer");
+			model.addAttribute("referer", referer);
+		    return "alert";
+		} 
+		
+		return "alert";
+	}
+	
+	
+	
 	
 	// 댓글 삭제
 	@PostMapping("/user/reDelete/{br_id}")
@@ -53,7 +87,7 @@ public class ReplyController {
 			String referer = request.getHeader("Referer");
 			model.addAttribute("referer", referer);
 		    return "alert";
-		}
+		} 
 		
 		return "";
 		

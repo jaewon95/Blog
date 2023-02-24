@@ -17,6 +17,7 @@ public class ReplyService {
 	@Autowired
 	private ReplyMapper mapper;
 	
+	
 	// 댓글 전체조회
 	public List<Reply> ReplyListAll(int bid) {
 		return mapper.ReplyListAll(bid);
@@ -29,8 +30,8 @@ public class ReplyService {
 	}
 	
 	// 댓글 수정하기
-	public int ReplyUpdate(int br_id) {
-		return mapper.ReplyUpdate(br_id);
+	public int ReplyUpdate(Reply reply) {
+		return mapper.ReplyUpdate(reply);
 	}
 		
 	// 댓글 삭제하기
