@@ -104,5 +104,36 @@ public class UserController {
 		session.invalidate();
 		return "redirect:/";
 	}
-
+	
+	
+	
+	
+	// oauth2 _ google
+	@GetMapping("/google")
+	public String naverLogin() {
+		System.out.println("네이버 로그인 페이지 이동");
+		return "social/google";
+	}
+	
+	// 네이버 로그인 처리페이지
+	@GetMapping("/oauth2/naver")
+	public String loginPost(HttpSession session) {
+		
+		return "oauth2/naverResult";
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

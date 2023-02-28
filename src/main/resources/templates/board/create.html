@@ -39,6 +39,7 @@
 	}
 	
 	
+	
 </style>
 
 <body>
@@ -50,9 +51,11 @@
 		<div class="container"> <!-- header.html 공통 css 적용 -->
 			<div class="article">
 			
-			<form action="/user/createPro" method="post">
+			<form action="/user/createPro" method="post" enctype="multipart/form-data">
 			 	작성자<input class="form-control writerInput" th:name="bwriter" th:value="${session.sessionId}" readonly="readonly">
 				제목<input class="form-control" th:name="btitle" placeholder="제목">
+				사진<input class="form-control" th:name="file" type="file" onchange="setThumbnail(event)">
+				<div class="image_container"></div>
 				본문<textarea class="form-control" name="bcontent" rows="20" style="resize: none;"></textarea>
 				<div class="btn-area">
 					<button class="btn btn-outline-secondary cancel">취소</button>
@@ -71,6 +74,31 @@
 	cancelBtn.addEventListener('click',function() {
 		history.back();
 	});
+	
+	
+	
+	
+	function setThumbnail(event){
+		let reader = new FileReader();
+		
+		reader.onload = function(event){
+			let img = document.createElement("img");
+			img.setAttribute("src", event.target.result);
+			img.setAttribute("class", "col-lg-6");
+			document.querySelector("div.image_container").appendChild(img);
+		};
+		
+		reader.readAsDataURL(event.target.files[0]);
+		
+		// 사진 올릴때마다 초기화
+		let photoChange = document.querySelector('.image_container');
+		console.log(photoChange.childNodes);
+		if(photoChange.childNodes[0]) { // 사진이 존재한다면 기존의 사진을 없애기  
+			photoChange.childNodes[0].remove();
+		} 
+		
+		
+	}
 	                              
 	
 </script>

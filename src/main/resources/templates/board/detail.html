@@ -56,7 +56,10 @@
 		pointer-events : none;
 	}
 	
-	
+	img {
+		width: 600px;
+		height: 400px;
+	}
 	
 	
 	
@@ -125,6 +128,8 @@
 	}
 	
 	
+	
+	
 	/*  ===========================  */
 	
 </style>
@@ -140,6 +145,15 @@
 			 	<input class="form-control inputArea" th:name="bwriter" th:value = "${selectOne.bwriter}" readonly="readonly">
 			 	<span>제목</span>						
 				<input class="form-control inputArea" name="btitle" th:value = "${selectOne.btitle}" readonly="readonly">
+				
+				
+				
+				<!-- 사진 -->
+				<th:block th:if="${selectOne.filepath != null}">
+					<img th:src="${selectOne.filepath}"  style="display: block;">
+				</th:block>
+				<th:block th:if="${selectOne.filepath == null}"></th:block>
+				
 				<span>본문</span>
 				<textarea class="form-control inputArea" th:text="${selectOne.bcontent}" name="bcontent" rows="20" style="resize: none;"></textarea>				
 				
@@ -201,7 +215,7 @@
 					<th:block th:if="${data.br_writer == session.sessionId}">
 						<div class="replytextWrapper2">
 							<div class="replytextWrapperArea">
-								<form th:action="@{/user/ReplyPro/{br_id} (br_id = ${data.br_id})}" method="post" class="">
+								<form th:action="@{/user/ReplyPro/{br_id} (br_id = ${data.br_id})}" method="post">
 									<div class="rpUserInfo">
 										<div>작성자 : <span th:text="${data.br_writer}"></span></div> 
 										<div>작성일 : <span th:text="${data.br_date}"></span></div>
@@ -236,49 +250,46 @@
 	const replyDelete = document.querySelector('.replyDelete'); // 댓글삭제버튼
 	const replyUpdate = document.querySelectorAll('.replyUpdate'); // 댓글수정버튼
 	
+	
 	function check(e){
-		
 		console.log(e); // onclick 요소를 가져오기
 		let num = e;
 		
 		for (const button of replyUpdate) { // 중복 class명에서 원하는 요소 찾기
-					
-				let data =  button.form.action; // 요소접근방법 , String 값 
-	
-				console.log("값 비교 :" + data.includes(num)); // includes로 true false 비교하기
 				
-				if(data.includes(num) == true) { // true 일 경우
+				// let num 과 비교해줄 action에 들어있는 id 값 구하기
+				let data = button.form.action; // 요소접근방법 , String 값 
+				
+				// let num 과 비교해서 true false 비교
+				console.log("값 비교 :" + data.includes(num)); 
+				
+				if(data.includes(num) == true) { // 값이 같을 경우
 					let child = button.parentNode.parentNode.childNodes[3]; // 요소접근방법
 					button.parentNode.remove();
 					
-					child.outerHTML='<textarea maxlength="200" name="br_content" style="resize: none; word-break: normal; height: auto; width:100%; padding: 10px;"></textarea><div style="display:flex; justify-content: flex-end;"><button class="btn btn-outline-secondary" style="margin-bottom:5px;">수정완료</button></div>';
+					child.outerHTML='<textarea maxlength="200" class="newTextArea" name="br_content" style="resize: none; word-break: normal; height: auto; width:100%; padding: 10px;"></textarea><div style="display:flex; justify-content: flex-end;"><button type="button" class="btn btn-outline-secondary newBtnSubmit" style="margin-bottom:5px;">수정완료</button></div>';
 					
-					button.addEventListener('click',function(){
-						this.setAttribute('type', 'submit'); // 요소에 속성 추가해주기 setAttribute
+					let newBtnSubmit = document.querySelector('.newBtnSubmit')
+					
+					newBtnSubmit.addEventListener('click',function(){
+						if(document.querySelector('.newTextArea').value == '') {
+							alert('댓글 내용을 입력해주세요')
+							document.querySelector('.newTextArea').focus();
+							return false;
+						} else {
+							this.setAttribute('type', 'submit');
+						}
 					});
 				}
-	
-					
-						
-						
 		}
 	}
-
 		
-
-
-
-
-	
-	
-	
-	
 	
 	// 뒤로가기 처리 
 	if(sessionValue == bwriter || sessionValue != bwriter) {
-	cancelBtn.addEventListener('click',function() {
-		history.back();
-	});
+		cancelBtn.addEventListener('click',function() {
+			history.back();
+		});
 	} 
 	
 	// 게시글 삭제 처리

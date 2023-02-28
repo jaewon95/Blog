@@ -94,8 +94,9 @@
 			<div class="row">
 				<th:block th:each="data : ${listAll}">
 					<div class="card col-md-4">
-						<img
-							src="https://cdn.pixabay.com/photo/2016/11/19/14/00/code-1839406_960_720.jpg">
+						
+						<img th:src="${data.filepath}" th:value="${data.filename}" th:if="${data.filepath != null}">
+							<img src="https://cdn.pixabay.com/photo/2016/11/19/14/00/code-1839406_960_720.jpg" th:if="${data.filepath == null}">
 						<div class="card-body"> 
 							<h5 class="card-title" th:text="${#strings.abbreviate(data.btitle,25)}"></h5> <!-- 글 제목 -->
 							<p class="card-text" th:text="${#strings.abbreviate(data.bcontent,80)}"></p> <!-- 글 본문 -->

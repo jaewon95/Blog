@@ -17,4 +17,8 @@ public class Board {
 	// 검색필터
 	private String keyword;
 	
+	// 파일
+	private String filename; 
+	private String filepath;
+	
 }

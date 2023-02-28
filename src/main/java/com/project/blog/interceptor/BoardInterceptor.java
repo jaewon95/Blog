@@ -54,11 +54,6 @@ public class BoardInterceptor implements HandlerInterceptor {
 				return false; // 인터셉터 통과X
 			}
 		} // ==============================================================================
-		
-		
-		
-		
-
 		return HandlerInterceptor.super.preHandle(request, response, handler);
 	}
 
