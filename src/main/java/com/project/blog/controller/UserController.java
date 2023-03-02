@@ -108,7 +108,7 @@ public class UserController {
 	// user - 마이페이지 이동하기
 	@GetMapping("/user/mypage")
 	public String myPageGo(Board board, Model model) {
-			
+		model.addAttribute("boardList", boardService.BoardAll()); 
 		return "user/userMyPage";
 	}
 	

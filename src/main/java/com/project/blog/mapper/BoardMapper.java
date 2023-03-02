@@ -20,7 +20,10 @@ public interface BoardMapper {
 	@Select(  " SELECT * FROM board WHERE bdelete_yn=0 "
 			+ " ORDER BY bid desc "
 			+ " limit #{pageStart},#{perPageNum} " )
-	List<Board> listAll(Criteria cri); 
+	List<Board> listAll(Criteria cri);
+	
+	@Select("SELECT * FROM board WHERE bdelete_yn = 0 ORDER BY bid desc")
+	List<Board> BoardAll();
 
 	// 글선택조회
 	@Select("SELECT * FROM board WHERE bid = #{bid}")
