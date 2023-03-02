@@ -56,7 +56,7 @@
 		pointer-events : none;
 	}
 	
-	img {
+	.img {
 		width: 600px;
 		height: 400px;
 	}
@@ -150,7 +150,8 @@
 				
 				<!-- 사진 -->
 				<th:block th:if="${selectOne.filepath != null}">
-					<img th:src="${selectOne.filepath}"  style="display: block;">
+					<input type="image" class="img" th:src="${selectOne.filepath}"  style="display: block;" />
+					
 				</th:block>
 				<th:block th:if="${selectOne.filepath == null}"></th:block>
 				
@@ -159,17 +160,23 @@
 				
 				<div class="btn-area">
 					<!-- 내 글 X. 다른 유저의 게시글을 선택했을때 -->
-					<th:block th:if="${selectOne.bwriter != session.sessionId}" class="replyArea">
+					<th:block th:if="${selectOne.bwriter != session.sessionId} and ${session.sessionId != 'admin'}" class="replyArea">
 						<button class="btn btn-outline-secondary cancel">뒤로가기</button>
 					</th:block>
 					
 					<!-- 내가 작성한 게시글을 선택했을때 -->
-					<th:block th:if="${selectOne.bwriter == session.sessionId}">
+					<th:block th:if="${selectOne.bwriter == session.sessionId} or ${session.sessionId == 'admin'}">
 						<button class="btn btn-outline-secondary cancel">뒤로가기</button>
-						<a th:href="@{/user/update/{bid} (bid = ${selectOne.bid})}" class="btn btn-outline-success updateBtn" type="button">수정</a>
-						<form class="boardDelete" th:action="@{/user/delete/{bid} (bid = ${selectOne.bid})}" method="post">
-							<a class="btn btn-outline-danger deleteBtn" type="button">삭제</a>
-						</form>
+						
+						<th:block th:if="${selectOne.bwriter == session.sessionId}">
+							<a th:href="@{/user/update/{bid} (bid = ${selectOne.bid})}" class="btn btn-outline-success updateBtn" type="button">수정</a>
+						</th:block>
+						
+						<th:block th:if="${selectOne.bwriter == session.sessionId} or ${session.sessionId == 'admin'}">
+							<form class="boardDelete" th:action="@{/user/delete/{bid} (bid = ${selectOne.bid})}" method="post">
+								<a class="btn btn-outline-danger deleteBtn" type="button">삭제</a>
+							</form>
+						</th:block>
 					</th:block>
 					
 				</div>
@@ -199,7 +206,7 @@
 				<!-- 댓글 권한 -->
 				<!-- 다른 USER가 작성한 댓글 -->
 				<th:block th:each="data : ${replyData}">
-					<th:block th:if="${data.br_writer != session.sessionId}">
+					<th:block th:if="${data.br_writer != session.sessionId} and ${session.sessionId != 'admin'}">
 						<div class="replytextWrapper" th:block>
 							<div class="rpUserInfo">
 								<div>작성자 : <span th:text="${data.br_writer}"></span></div> 
@@ -212,7 +219,7 @@
 				
 				<!-- 자신이 작성한 댓글 -->
 				<th:block th:each="data : ${replyData}">
-					<th:block th:if="${data.br_writer == session.sessionId}">
+					<th:block th:if="${data.br_writer == session.sessionId} or ${session.sessionId == 'admin'}">
 						<div class="replytextWrapper2">
 							<div class="replytextWrapperArea">
 								<form th:action="@{/user/ReplyPro/{br_id} (br_id = ${data.br_id})}" method="post">
@@ -221,16 +228,17 @@
 										<div>작성일 : <span th:text="${data.br_date}"></span></div>
 									</div>
 									<div th:text=${data.br_content} class="col-md-12 replyTextarea"></div>
-									<div class="rpBtnArea">
-										<input type="button" class="btn btn-outline-secondary replyUpdate" th:onclick="check([[${data.br_id}]])" value="수정하기">
-									</div>
+									<th:block th:if="${data.br_writer == session.sessionId}">
+										<div class="rpBtnArea" >
+											<input type="button" class="btn btn-outline-secondary replyUpdate" th:onclick="check([[${data.br_id}]])" value="수정하기">
+										</div>
+									</th:block>
 								</form>
 								<form th:action="@{/user/reDelete/{br_id} (br_id = ${data.br_id})}" method="post" class="deleteForm">
 									<button type="submit" class="btn btn-outline-danger replyDelete">댓글삭제</button>
 								</form>
 							</div>
 						</div>
-											
 					</th:block>
 				</th:block>
 				</div><!-- 아티클 END -->

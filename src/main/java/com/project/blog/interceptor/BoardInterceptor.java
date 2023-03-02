@@ -15,6 +15,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.project.blog.entity.Account;
 import com.project.blog.entity.Board;
 
 public class BoardInterceptor implements HandlerInterceptor {
@@ -37,6 +38,7 @@ public class BoardInterceptor implements HandlerInterceptor {
 		HttpSession session = request.getSession();
 		String id = (String) session.getAttribute("sessionId");
 		String url = request.getRequestURI(); // 요청 주소값
+		String admin = "admin";
 
 		// 글쓰기 체크 => 로그인 상태가 아니라면 진행못하게 막기
 		if (url.equals("/user/create")) { // url에 /user/create 요청이 들어오면
@@ -54,6 +56,21 @@ public class BoardInterceptor implements HandlerInterceptor {
 				return false; // 인터셉터 통과X
 			}
 		} // ==============================================================================
+		
+		
+		// 관리자 접근 관리하기
+		if(url.equals("/admin/userManage")) {
+			if (session.getAttribute("loginSession") == null) {
+				freeset(response);
+			} else {
+				if(id.equals(admin)) {
+					System.out.println("관리자");
+				} else {
+					freeset(response);
+				}
+			}
+			
+		}
 		return HandlerInterceptor.super.preHandle(request, response, handler);
 	}
 

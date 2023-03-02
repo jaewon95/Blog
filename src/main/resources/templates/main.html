@@ -70,6 +70,10 @@
 		
 	}
 	
+	.active {
+		background-color: #d3d3d3;
+	}
+	
 	
 	
 	/* 본문 css 끝 */
@@ -126,7 +130,7 @@
 			        <span aria-hidden="true">&laquo;</span>
 			      </a>
 			    </li>
-			     
+			    
 			    
 			    <!-- 페이지 번호 나타냄 -->
 			    <li th:each="data : ${#numbers.sequence(pageMaker.startPage, pageMaker.endPage)}">
@@ -134,10 +138,10 @@
 			    		<a class="page-link" th:href="@{/(page = ${data})}" th:text="${data}"></a>
 			    	</div>
 			    	<div th:if="${pageMaker.cri.page == data}"> <!-- 현재페이지인 경우 -->
-			    		<a  class="page-link active" th:href="@{/(page = ${data})}" th:text="${data}"></a>
+			    		<a class="page-link active" th:href="@{/(page = ${data})}" th:text="${data}"></a>
 			    	</div>
 			    </li>
-			 
+			 	
 			    
 			    <!-- 다음처리 -->
 			    <li class="page-item" th:if="${pageMaker.next}">

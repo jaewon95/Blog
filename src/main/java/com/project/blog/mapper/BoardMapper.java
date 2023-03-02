@@ -38,6 +38,7 @@ public interface BoardMapper {
 	@Update("UPDATE board SET bdelete_yn = 1 WHERE bid = #{bid}")
 	int delete(Board board);
 	
+	// 총 게시물 작성 수량
 	@Select("SELECT count(*) from board WHERE bdelete_yn = 0")
 	int totalCount();
 	

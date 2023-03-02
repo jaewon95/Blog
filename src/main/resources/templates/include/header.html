@@ -188,13 +188,43 @@
               	</span>
               </th:block>
               
+              
+              	
+              
+              
               <!-- 세션에 값이 있을 경우 -->
               <th:block th:if="${session.loginSession != null} ">
+              	
+              	<!-- 관리자 로그인 -->
+        		<th:block th:if="${session.sessionId == 'admin'}">
+	              	<span class="userArea" style="margin-left: 10px; margin-right: 10px;">  
+	              		환영합니다 관리자님
+	              	</span>
+           		<span class="loginSessionOn">
+              		<input class="btn btn-outline-success registerBoard" type="button" value="글쓰기">
+              	</span>
+              	
+              	<!-- dropdown -->	
+				<div class="btn-group">
+				  <button type="button" class="btn btn-outline-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+				   
+				  </button>
+				  <ul class="dropdown-menu">
+				    <li class="dropdown-item logout">로그아웃</li>
+				    <li><a class="dropdown-item" href="/admin/userManage">회원관리</a></li>
+				  </ul>
+				</div>
+				
+           		</th:block>
+              	<!-- 관리자 끝  -->
+              
+              
+              	<!-- 일반 회원 -->
+              	<th:block th:if="${session.sessionId != 'admin'}">
               	<span class="userArea" style="margin-left: 10px; margin-right: 10px;">
               		<span class="userImg"></span>
               		[[${session.loginSession.act_id}]]님
-              	</span>
-              	
+              	</span>    	
               	
               	<span class="loginSessionOn">
               		<input class="btn btn-outline-success registerBoard" type="button" value="글쓰기">
@@ -207,14 +237,14 @@
 				  </button>
 				  <ul class="dropdown-menu">
 				    <li class="dropdown-item logout">로그아웃</li>
-				    <li><a class="dropdown-item" href="#">설정</a></li>
+				    <li><a class="dropdown-item" href="/user/mypage">마이페이지</a></li>
 				    <li><a class="dropdown-item" href="#">설정1</a></li>
 				   
 				  </ul>
 				</div>
 			   <!-- ========================================================= -->
-
-              </th:block>
+				</th:block> <!-- 일반 회원 -->
+              </th:block> <!-- session 비교 -->
           </div>    
        </nav>
    </div>

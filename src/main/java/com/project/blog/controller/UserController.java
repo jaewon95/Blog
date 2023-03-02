@@ -82,10 +82,10 @@ public class UserController {
 	public String loginPro(Account act, Model model, HttpSession session, Criteria cri, Board board, HttpServletRequest request) {
 
 		System.out.println(" 로그 :  " + service.login(act));
-
+		
 		if (service.login(act) == null) {
 			System.out.println("로그인 실패");
-			model.addAttribute("msg", "아이디와 비밀번호를 확인해주세요");
+			model.addAttribute("msg", "로그인 실패");
 			model.addAttribute("url", "/");
 			String referer = request.getHeader("Referer");
 			model.addAttribute("referer", referer);
@@ -105,22 +105,14 @@ public class UserController {
 		return "redirect:/";
 	}
 	
-	
-	
-	
-	// oauth2 _ google
-	@GetMapping("/google")
-	public String naverLogin() {
-		System.out.println("네이버 로그인 페이지 이동");
-		return "social/google";
+	// user - 마이페이지 이동하기
+	@GetMapping("/user/mypage")
+	public String myPageGo(Board board, Model model) {
+			
+		return "user/userMyPage";
 	}
 	
-	// 네이버 로그인 처리페이지
-	@GetMapping("/oauth2/naver")
-	public String loginPost(HttpSession session) {
-		
-		return "oauth2/naverResult";
-	}
+	
 }
 
 
