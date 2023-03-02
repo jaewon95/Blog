@@ -70,6 +70,10 @@
 		
 	}
 	
+	.active {
+		background-color: #d3d3d3;
+	}
+	
 	
 	
 	/* 본문 css 끝 */
@@ -94,8 +98,9 @@
 			<div class="row">
 				<th:block th:each="data : ${listAll}">
 					<div class="card col-md-4">
-						<img
-							src="https://cdn.pixabay.com/photo/2016/11/19/14/00/code-1839406_960_720.jpg">
+						
+						<img th:src="${data.filepath}" th:value="${data.filename}" th:if="${data.filepath != null}">
+							<img src="https://cdn.pixabay.com/photo/2016/11/19/14/00/code-1839406_960_720.jpg" th:if="${data.filepath == null}">
 						<div class="card-body"> 
 							<h5 class="card-title" th:text="${#strings.abbreviate(data.btitle,25)}"></h5> <!-- 글 제목 -->
 							<p class="card-text" th:text="${#strings.abbreviate(data.bcontent,80)}"></p> <!-- 글 본문 -->
@@ -125,7 +130,7 @@
 			        <span aria-hidden="true">&laquo;</span>
 			      </a>
 			    </li>
-			     
+			    
 			    
 			    <!-- 페이지 번호 나타냄 -->
 			    <li th:each="data : ${#numbers.sequence(pageMaker.startPage, pageMaker.endPage)}">
@@ -133,10 +138,10 @@
 			    		<a class="page-link" th:href="@{/(page = ${data})}" th:text="${data}"></a>
 			    	</div>
 			    	<div th:if="${pageMaker.cri.page == data}"> <!-- 현재페이지인 경우 -->
-			    		<a  class="page-link active" th:href="@{/(page = ${data})}" th:text="${data}"></a>
+			    		<a class="page-link active" th:href="@{/(page = ${data})}" th:text="${data}"></a>
 			    	</div>
 			    </li>
-			 
+			 	
 			    
 			    <!-- 다음처리 -->
 			    <li class="page-item" th:if="${pageMaker.next}">

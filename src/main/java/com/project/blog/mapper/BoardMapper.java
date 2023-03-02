@@ -27,17 +27,18 @@ public interface BoardMapper {
 	Board selectOne(int bid);
 	
 	// 글생성
-	@Insert("INSERT INTO board (btitle, bwriter, bcontent) values (#{btitle},#{bwriter}, #{bcontent})")
+	@Insert("INSERT INTO board (btitle, bwriter, bcontent, filename, filepath) values (#{btitle},#{bwriter}, #{bcontent}, #{filename} ,#{filepath})")
 	int create(Board board);
 	
 	// 글수정
-	@Update("UPDATE board SET btitle = #{btitle}, bcontent = #{bcontent}  WHERE bid = #{bid}")
+	@Update("UPDATE board SET btitle = #{btitle}, bcontent = #{bcontent}, filename = #{filename}, filepath = #{filepath}  WHERE bid = #{bid}")
 	int update(Board board);
 	
 	// 글삭제
 	@Update("UPDATE board SET bdelete_yn = 1 WHERE bid = #{bid}")
 	int delete(Board board);
 	
+	// 총 게시물 작성 수량
 	@Select("SELECT count(*) from board WHERE bdelete_yn = 0")
 	int totalCount();
 	

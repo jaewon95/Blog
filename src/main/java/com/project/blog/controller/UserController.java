@@ -82,10 +82,10 @@ public class UserController {
 	public String loginPro(Account act, Model model, HttpSession session, Criteria cri, Board board, HttpServletRequest request) {
 
 		System.out.println(" 로그 :  " + service.login(act));
-
+		
 		if (service.login(act) == null) {
 			System.out.println("로그인 실패");
-			model.addAttribute("msg", "아이디와 비밀번호를 확인해주세요");
+			model.addAttribute("msg", "로그인 실패");
 			model.addAttribute("url", "/");
 			String referer = request.getHeader("Referer");
 			model.addAttribute("referer", referer);
@@ -104,5 +104,28 @@ public class UserController {
 		session.invalidate();
 		return "redirect:/";
 	}
-
+	
+	// user - 마이페이지 이동하기
+	@GetMapping("/user/mypage")
+	public String myPageGo(Board board, Model model) {
+			
+		return "user/userMyPage";
+	}
+	
+	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

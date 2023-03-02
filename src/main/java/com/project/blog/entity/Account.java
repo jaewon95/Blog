@@ -10,5 +10,6 @@ import lombok.NoArgsConstructor;
 public class Account {
 	int act_num;
 	String act_id;
-	int act_pw;
+	String act_pw;
+	int act_role;
 }

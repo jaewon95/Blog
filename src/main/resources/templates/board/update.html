@@ -17,6 +17,11 @@
 		padding: 20px;
 	}
 	
+	.boardImgArea {
+		width: 600px;
+		height: 400px;
+	}
+	
 	form > .form-control {
 		margin-bottom: 20px;
 	}
@@ -43,10 +48,15 @@
 		<div class="container"> <!-- header.html 공통 css 적용 -->
 			<div class="article">
 				<th:block th:if="${updateData.bwriter == session.sessionId}">
-				<form th:action="@{/user/updatePro/{bid} (bid = ${updateData.bid})}" method="post">
+				<form th:action="@{/user/updatePro/{bid} (bid = ${updateData.bid})}" method="post" enctype="multipart/form-data">
 					
 				 	작성자<input class="form-control inputArea" th:name="bwriter" th:value = "${updateData.bwriter}">
-					제목<input class="form-control inputArea" name="btitle" th:value = "${updateData.btitle}">
+				 	제목<input class="form-control inputArea" th:name="btitle" th:value = "${updateData.btitle}">
+					사진<input class="form-control photo" th:name="file" type="file" onchange="setThumbnail(event)">
+					<div class="image_container">
+						<input type="image" class="boardImgArea" th:src="${updateData.filepath}" name="filepath" th:name="filepath" th:value="${updateData.filepath}" th:if="${updateData.filepath != null}" style="display: block;">
+					</div> 
+					<!--===================================== 사진 끝 ====================================-->
 					본문<textarea class="form-control inputArea" th:text="${updateData.bcontent}" name="bcontent" rows="20" style="resize: none;"></textarea>
 					<div class="btn-area">
 						<a class="btn btn-outline-secondary cancel">취소</a>
@@ -64,12 +74,39 @@
 	</div>
 
 <script>
+	
+	
+
 	const cancelBtn = document.querySelector('.cancel'); // 뒤로가기 버튼
 	
 	// 뒤로가기 
 	cancelBtn.addEventListener('click',function() {
 		location.href="/"
 	});
+	
+	
+	// 이미지 업로드	
+	let photoDelBtn = document.querySelector('.photo');
+	
+	// 사진 삭제하기
+	photoDelBtn.addEventListener('click', function(){
+		document.querySelector('.image_container').replaceChildren();
+	});
+	
+	
+	function setThumbnail(event){
+		
+		let reader = new FileReader();
+		
+		reader.onload = function(event){
+			let img = document.createElement("img");
+			img.setAttribute("src", event.target.result);
+			img.setAttribute("class", "col-lg-6");
+			document.querySelector("div.image_container").appendChild(img);
+		};
+		
+		reader.readAsDataURL(event.target.files[0]);
+	}
 	
 
 </script>

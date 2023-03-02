@@ -1,5 +1,7 @@
 package com.project.blog.mapper;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
@@ -9,7 +11,7 @@ import com.project.blog.entity.Account;
 @Mapper
 public interface AccountMapper {
 	
-	@Select("SELECT * FROM account WHERE act_id = #{act_id} and act_pw = #{act_pw}")
+	@Select("SELECT * FROM account WHERE act_id = #{act_id} and act_pw = #{act_pw} and act_role != 0")
 	Account login(Account act); // 로그인
 	
 	@Select("SELECT count(*) FROM account WHERE act_id = #{act_id}")
@@ -20,6 +22,9 @@ public interface AccountMapper {
 	
 	@Select("SELECT COUNT(*) FROM account WHERE act_id = #{act_id}")
 	int userIdCheck(Account act); // 회원가입 아이디 중복검사
+	
+	@Select("SELECT * FROM account WHERE act_role != 2")
+	List<Account> userAll(); // 회원 전체 목록 보기
 	
 	
 	
