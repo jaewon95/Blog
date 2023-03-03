@@ -44,7 +44,6 @@ public class UserController {
 	@ResponseBody
 	public String checkId(@RequestParam("act_id") String id, Account act, HttpServletResponse response) throws IOException {
 		
-		System.out.println("야호 "+ id);
 		act.setAct_id(id);
 		int checkNum = service.userIdCheck(act); // 0이면 성공 
 		
@@ -104,14 +103,6 @@ public class UserController {
 		session.invalidate();
 		return "redirect:/";
 	}
-	
-	// user - 마이페이지 이동하기
-	@GetMapping("/user/mypage")
-	public String myPageGo(Board board, Model model) {
-		model.addAttribute("boardList", boardService.BoardAll()); 
-		return "user/userMyPage";
-	}
-	
 	
 }
 

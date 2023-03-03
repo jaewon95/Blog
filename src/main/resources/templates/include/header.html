@@ -198,7 +198,7 @@
               	<!-- 관리자 로그인 -->
         		<th:block th:if="${session.sessionId == 'admin'}">
 	              	<span class="userArea" style="margin-left: 10px; margin-right: 10px;">  
-	              		환영합니다 관리자님
+	              		관리자
 	              	</span>
            		<span class="loginSessionOn">
               		<input class="btn btn-outline-success registerBoard" type="button" value="글쓰기">
@@ -237,9 +237,6 @@
 				  </button>
 				  <ul class="dropdown-menu">
 				    <li class="dropdown-item logout">로그아웃</li>
-				    <li><a class="dropdown-item" href="/user/mypage">마이페이지</a></li>
-				    <li><a class="dropdown-item" href="#">설정1</a></li>
-				   
 				  </ul>
 				</div>
 			   <!-- ========================================================= -->
@@ -271,10 +268,6 @@
 					</div>
 					<a href="/google" type="button" class="btn btn-outline-primary col-md-12 googleBtn">
 					Google 계정으로 로그인</a>
-					
-
-					
-					
 				</div>
 			</div>
 		</div>

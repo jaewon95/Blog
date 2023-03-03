@@ -38,6 +38,18 @@
 		pointer-events : none;
 	}
 	
+	.spanTag {
+		color: black;
+ 		font-size: 15px;
+ 		border: 1px solid black;
+ 		border-radius: 10px;
+ 		padding: 0 10px;
+ 		margin: auto 3px;
+	}
+	
+	.tagArea {
+		margin-bottom: 10px;
+	}
 	
 	
 </style>
@@ -51,15 +63,15 @@
 		<div class="container"> <!-- header.html 공통 css 적용 -->
 			<div class="article">
 			
-			<form action="/user/createPro" method="post" enctype="multipart/form-data">
+			<form action="/user/createPro" method="post" enctype="multipart/form-data" onkeydown="if(event.keyCode==13) return false;">
 			 	작성자<input class="form-control writerInput" th:name="bwriter" th:value="${session.sessionId}" readonly="readonly">
-				제목<input class="form-control" th:name="btitle" placeholder="제목">
+				제목<input class="form-control" type="text" th:name="btitle" placeholder="제목">
 				사진<input class="form-control" th:name="file" type="file" onchange="setThumbnail(event)">
 				<div class="image_container"></div>
 				본문<textarea class="form-control" name="bcontent" rows="20" style="resize: none;"></textarea>
 				<div class="btn-area">
 					<button class="btn btn-outline-secondary cancel">취소</button>
-					<button class="btn btn-outline-secondary" type="submit">작성완료</button>
+					<button class="btn btn-outline-secondary submitBtn" type="submit">작성완료</button>
 				</div>
 			</form>
 			</div>
@@ -69,12 +81,14 @@
 
 <script>					   
 	const cancelBtn = document.querySelector('.cancel'); // 뒤로가기 버튼
+	const submitBtn = document.querySelector('.submitBtn');
+	const tagArea = document.querySelector('.tagArea');
+	const tag = document.querySelector('.tag');	// 태그
 	
 	// 뒤로가기 
 	cancelBtn.addEventListener('click',function() {
 		history.back();
 	});
-	
 	
 	
 	
@@ -96,11 +110,8 @@
 		if(photoChange.childNodes[0]) { // 사진이 존재한다면 기존의 사진을 없애기  
 			photoChange.childNodes[0].remove();
 		} 
-		
-		
 	}
-	                              
-	
+
 </script>
 
 

@@ -24,11 +24,6 @@ public class BoardService {
 		return mapper.listAll(cri);
 	}
 	
-	// 글전체조회
-	public List<Board> BoardAll(){
-		return mapper.BoardAll();
-	};
-	
 	// 글선택조회
 	public Board selectOne(int bid) {
 		return mapper.selectOne(bid);
