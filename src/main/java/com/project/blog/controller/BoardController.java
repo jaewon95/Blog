@@ -74,9 +74,10 @@ public class BoardController {
 	@PostMapping("/user/createPro")
 	public String registerPro(Board board, @RequestParam("file") MultipartFile file) throws Exception {
 		
+		System.out.println("글생성처리");
 		System.out.println(board.toString());
 		
-		if(board.getFilename() != null) {
+		if(file.getOriginalFilename().isEmpty() == false) { 
 			String projectPath = System.getProperty("user.dir") + "/src/main/resources/static/files"; // 저장경로 지정
 
 	        UUID uuid = UUID.randomUUID(); // 파일 이름에 붙일 랜덤이름 생성
@@ -89,11 +90,15 @@ public class BoardController {
 	        
 	        board.setFilename(filename);
 	        board.setFilepath("/files/"+filename);
-			
+	        
+	        System.out.println("사진 테스트"+board.toString());
+	        
 			boardService.create(board, file);
+		} else {
+			boardService.create(board, file); 
 		}
 		
-		boardService.create(board, file);
+		
 
 		return "redirect:/";
 	}

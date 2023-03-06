@@ -113,8 +113,9 @@
 		history.back();
 	});
 	
-	
-	
+
+
+	// 사진 추가하려고 클릭시 실행
 	function setThumbnail(event){
 		let reader = new FileReader();
 		
@@ -130,7 +131,7 @@
 		// 사진 올릴때마다 초기화
 		let photoChange = document.querySelector('.image_container');
 		console.log(photoChange.childNodes);
-		if(photoChange.childNodes[0]) { // 사진이 존재한다면 기존의 사진을 없애기  
+	 	if(photoChange.childNodes[0]) { // 사진이 존재한다면 기존의 사진을 없애기  
 			photoChange.childNodes[0].remove();
 		} 
 	}
