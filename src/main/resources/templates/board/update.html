@@ -50,7 +50,7 @@
 				<th:block th:if="${updateData.bwriter == session.sessionId}">
 				<form th:action="@{/user/updatePro/{bid} (bid = ${updateData.bid})}" method="post" enctype="multipart/form-data">
 					
-				 	작성자<input class="form-control inputArea" th:name="bwriter" th:value = "${updateData.bwriter}">
+				 	작성자<input class="form-control inputArea" th:name="bwriter" th:value = "${updateData.bwriter}" readonly="readonly">
 				 	제목<input class="form-control inputArea boardTitle" th:name="btitle" th:value = "${updateData.btitle}">
 					사진<input class="form-control photo" th:name="file" type="file" onchange="setThumbnail(event)">
 					<div class="image_container">
