@@ -301,7 +301,7 @@
 	} 
 	
 	// 게시글 삭제 처리
-	if(sessionValue == bwriter) {
+	if(sessionValue == bwriter || sessionValue == 'admin') {
 		deleteBtn.addEventListener('click',function(){
 			let alert = confirm("게시글을 삭제하시겠습니까?");
 			

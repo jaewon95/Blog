@@ -228,7 +228,7 @@
               	<!-- 일반 회원 -->
               	<th:block th:if="${session.sessionId != 'admin'}">
               	<span class="userArea" style="margin-left: 10px; margin-right: 10px;">
-              		<img class="userImg" src="https://cdn-icons-png.flaticon.com/512/9207/9207952.png">
+              		<img class="userImg" th:src="${session.loginUserIconSrc}">
               		[[${session.loginSession.act_id}]]님
               	</span>    	
               	

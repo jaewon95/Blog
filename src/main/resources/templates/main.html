@@ -106,7 +106,7 @@
 							<p class="card-text" th:text="${#strings.abbreviate(data.bcontent,80)}"></p> <!-- 글 본문 -->
 							<div class="cardBtn-h">
 								<div class="cardUserInfo">
-									<span class="cardImg"></span>
+									<span class="cardImg"><img th:src="${boardIcon}"></span>
 									<span class="cardWriter" th:text="${data.bwriter}"></span>
 								</div>
 								<a th:href="@{/user/detail/{data} (data = ${data.bid})}" class="btn btn-primary cardBtn">상세보기</a>

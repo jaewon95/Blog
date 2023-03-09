@@ -37,5 +37,16 @@ public class AccountService {
 	public List<Account> userAll(){
 		return accountMapper.userAll();
 	}
+	
+	// 회원 id로 선택조회
+	public int selectOne(String act_id) {
+		return accountMapper.selectOne(act_id);
+	}
+	
+	// 가장 최근에 회원가입한 회원 id 조회
+	public Account newUserSearch() {
+		return accountMapper.newUserSearch();
+	}
+	 
 
 }

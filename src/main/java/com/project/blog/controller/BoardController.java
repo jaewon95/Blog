@@ -20,6 +20,7 @@ import com.project.blog.entity.PageMaker;
 import com.project.blog.entity.Reply;
 import com.project.blog.service.AccountService;
 import com.project.blog.service.BoardService;
+import com.project.blog.service.IconService;
 import com.project.blog.service.ReplyService;
 
 @Controller
@@ -34,11 +35,15 @@ public class BoardController {
 	@Autowired
 	private ReplyService replyService;
 	
+	
+	
 	// 글전체조회
 	@GetMapping("/")
 	public String mainPage(Criteria cri,Model model) {
 		
+		
 		model.addAttribute("listAll", boardService.listAll(cri));
+		
 		
 		// 페이징 처리에 필요한 부분
 		PageMaker pageMaker = new PageMaker();
@@ -60,7 +65,7 @@ public class BoardController {
 		
 		// 댓글
 		model.addAttribute("replyData", replyService.ReplyListAll(bid));
-		
+		System.out.println(replyService.ReplyListAll(bid));
 		return "board/detail";
 	}
 	

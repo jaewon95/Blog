@@ -1,8 +1,6 @@
 package com.project.blog.controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.net.http.HttpResponse;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -13,16 +11,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.project.blog.entity.Account;
 import com.project.blog.entity.Board;
 import com.project.blog.entity.Criteria;
-import com.project.blog.entity.PageMaker;
+import com.project.blog.entity.Icon;
 import com.project.blog.service.AccountService;
 import com.project.blog.service.BoardService;
+import com.project.blog.service.IconService;
 
 @Controller
 public class UserController {
@@ -32,6 +30,9 @@ public class UserController {
 
 	@Autowired
 	private BoardService boardService;
+	
+	@Autowired
+	private IconService iconService;
 
 	// 회원가입 페이지 이동
 	@GetMapping("/register")
@@ -60,9 +61,10 @@ public class UserController {
 
 	// 회원가입 처리
 	@PostMapping("/registerPro")
-	public String registerPro(Account act, Model model) {
+	public String registerPro(Account act, Model model,Icon icon) {
 
 		int result = service.userIdCheck(act);
+	
 		
 		System.out.println("컨트롤러 값 확인 : " + result);
 		
@@ -73,6 +75,11 @@ public class UserController {
 		}
 
 		service.create(act);
+		System.out.println("============");
+		System.out.println("최근 가입한 아이디 : "+service.newUserSearch().getAct_id()); 
+		String UserName = service.newUserSearch().getAct_id();
+		iconService.iconSetting(UserName);
+		
 		return "redirect:/";
 	}
 
@@ -80,7 +87,7 @@ public class UserController {
 	@PostMapping("/loginPro")
 	public String loginPro(Account act, Model model, HttpSession session, Criteria cri, Board board, HttpServletRequest request) {
 
-		System.out.println(" 로그 :  " + service.login(act));
+		
 		
 		if (service.login(act) == null) {
 			System.out.println("로그인 실패");
@@ -90,7 +97,13 @@ public class UserController {
 			model.addAttribute("referer", referer);
 		    return "alert";
 		} else {
+			System.out.println("로그인 한 유저 확인 :  " + service.login(act).getAct_id());
+			
+			// icon 
+			String src = iconService.userIcon(service.login(act).getAct_id()).getIconSrc();
+			
 			session.setAttribute("sessionId", service.login(act).getAct_id()); // 세션에 로그인한 유저의 id 값 넣어주기
+			session.setAttribute("loginUserIconSrc", src);
 			session.setAttribute("loginSession",service.login(act)); 
 			model.addAttribute("listAll",boardService.listAll(cri)); 
 			return "redirect:/";

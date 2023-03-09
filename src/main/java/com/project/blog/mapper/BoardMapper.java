@@ -51,4 +51,6 @@ public interface BoardMapper {
 			)
 	List<Board> SearchListAll(Board board);
 	
+	
+
 }

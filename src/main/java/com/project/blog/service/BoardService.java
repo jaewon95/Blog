@@ -54,5 +54,5 @@ public class BoardService {
 	public List<Board> SearchListAll(Board board) {
 		return mapper.SearchListAll(board);
 	};
-
+	
 }

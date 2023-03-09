@@ -20,8 +20,15 @@ public interface AccountMapper {
 	@Select("SELECT COUNT(*) FROM account WHERE act_id = #{act_id}")
 	int userIdCheck(Account act); // 회원가입 아이디 중복검사
 	
+	@Select("SELECT * FROM account order by act_num desc limit 1")
+	Account newUserSearch(); // 가장 최근에 회원가입한 회원 id 조회
+	
 	@Select("SELECT * FROM account WHERE act_role != 2")
 	List<Account> userAll(); // 회원 전체 목록 보기
+	
+	@Select("SELECT * FROM account WHERE act_id = #{act_id}")
+	int selectOne(String act_id); //회원 선택 조회
+	
 	
 	
 	

@@ -8,8 +8,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Account {
-	int act_num;
-	String act_id;
-	String act_pw;
-	int act_role;
+	private int act_num;
+	private String act_id;
+	private String act_pw;
+	private int act_role;
 }
