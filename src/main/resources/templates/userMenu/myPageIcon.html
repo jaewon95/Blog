@@ -24,14 +24,15 @@
 		height: 100vh;
 	}
 	
-	.mpForm {
-		width: 80%;
-		height: 100vh;
-		display: flex;
-		justify-content: center;
-	    flex-direction: row;
-	    flex-wrap: wrap;
+	.mpSideMenu > ul > li > a {
+		text-decoration: none;
+		color: black;
 	}
+	
+	.mpSideMenu > ul > li > a:hover {
+		font-weight: bold;
+	}
+
 	
 	
 	/* 아이콘 */
@@ -80,9 +81,8 @@
 		<div class="container"> <!-- header.html 공통 css 적용 -->
 			<div class="mpSideMenu">
 				<ul>
-					<li><a href="#">아이콘 변경하기</a></li>
-					<li><a href="#">비밀번호 변경하기</a></li>
-					<li><a href="#">내가 작성한 게시글</a></li>
+					<li><a href="/user/myPage">아이콘 변경하기</a></li>
+					<li><a href="/user/myPage/Password">비밀번호 변경하기</a></li>
 				</ul>
 			</div>
 			
@@ -151,6 +151,7 @@
 		
 		// 버튼 클릭하면 데이터 넘기기
 		iconBtn.addEventListener('click',function(){
+			alert('아이콘 변경완료');
 			location.href="/user/mpIconChange?radioValue="+radioValue+"&srcValue="+srcValue
 		});
 		

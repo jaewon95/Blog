@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import com.project.blog.entity.Account;
 
@@ -29,11 +30,11 @@ public interface AccountMapper {
 	@Select("SELECT * FROM account WHERE act_id = #{act_id}")
 	int selectOne(String act_id); //회원 선택 조회
 	
+	@Select("SELECT act_pw FROM account WHERE act_id = #{act_id}")
+	String selectPassword(String act_id); // 해당 id의 pw를 가져오기
 	
-	
-	
-	
-
+	@Update("UPDATE account SET act_pw = #{act_pw} WHERE act_id = #{act_id}")
+	int passwordUpdate(Account act);// 비밀번호 수정하기
 	
 
 }

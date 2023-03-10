@@ -37,7 +37,6 @@ public class PageMaker {
 		
 		// 3.전체 마지막 페이지 계산하기 ( 항상 유동적인 부분 ) : 말 그대로 전체 번호 수 ex) 24개다 뭐 이런거
 		int tempEndPage = (int) (Math.ceil(totalCount / (double)cri.getPerPageNum()));
-		System.out.println(tempEndPage);
 		
 		
 		// 4.화면에 보여질 마지막 페이지 유효성 체크

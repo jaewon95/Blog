@@ -25,9 +25,6 @@ public class SearchController {
 		
 		board.setKeyword(keyword);
 		
-		System.out.println("키워드 목록 " + boardService.SearchListAll(board).toString()); 
-		
-		
 		return boardService.SearchListAll(board);
 		
 	}

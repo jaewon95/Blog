@@ -87,6 +87,24 @@ public class BoardInterceptor implements HandlerInterceptor {
 		HttpSession session = request.getSession();
 		String id = (String) session.getAttribute("sessionId");
 		String url = request.getRequestURI(); // 요청 주소값
+		
+		// 마이페이지 접근 차단하기
+		if(url.contains("/user/myPage")) {
+			if(session.getAttribute("loginSession") == null) { // session 값이 비어있다면
+				freeset(response);
+			} 
+		}
+		
+		if(url.contains("/user/myPage/Password")) {
+			if(session.getAttribute("loginSession") == null) { // session 값이 비어있다면
+				freeset(response);
+			} 
+		}
+			
+			
+			
+			
+			
 
 		// 게시글 update 강제 접근 차단
 		if (url.contains("/user/update/")) {

@@ -35,6 +35,9 @@ public class BoardController {
 	@Autowired
 	private ReplyService replyService;
 	
+	@Autowired
+	private IconService iconService;
+	
 	
 	
 	// 글전체조회
@@ -43,16 +46,14 @@ public class BoardController {
 		
 		
 		model.addAttribute("listAll", boardService.listAll(cri));
-		
+		model.addAttribute("iconData", iconService.iconAll());
 		
 		// 페이징 처리에 필요한 부분
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCri(cri);
-		System.out.println(" : " + pageMaker.getCri().toString()); // ?page=1 또는 perPageNum=10 이렇게 요청을 넣을 수 있음 
 		
 		pageMaker.setTotalCount(boardService.totalCount()); // 전체페이지의 수
 		model.addAttribute("pageMaker", pageMaker);
-		
 		
 		return "main";
 	}
@@ -65,7 +66,6 @@ public class BoardController {
 		
 		// 댓글
 		model.addAttribute("replyData", replyService.ReplyListAll(bid));
-		System.out.println(replyService.ReplyListAll(bid));
 		return "board/detail";
 	}
 	
@@ -80,7 +80,6 @@ public class BoardController {
 	public String registerPro(Board board, @RequestParam("file") MultipartFile file) throws Exception {
 		
 		System.out.println("글생성처리");
-		System.out.println(board.toString());
 		
 		if(file.getOriginalFilename().isEmpty() == false) { 
 			String projectPath = System.getProperty("user.dir") + "/src/main/resources/static/files"; // 저장경로 지정
@@ -96,14 +95,10 @@ public class BoardController {
 	        board.setFilename(filename);
 	        board.setFilepath("/files/"+filename);
 	        
-	        System.out.println("사진 테스트"+board.toString());
-	        
 			boardService.create(board, file);
 		} else {
 			boardService.create(board, file); 
 		}
-		
-		
 
 		return "redirect:/";
 	}
@@ -138,17 +133,15 @@ public class BoardController {
 			String path = boardService.selectOne(bid).getFilepath();
 			System.out.println("path값 가져오기 위한 로그 : "+boardService.selectOne(bid).getFilepath());
 			board.setFilepath(path);
-			System.out.println(board.toString()); 
 			
-			
-			// 기존의 이미지 삭제 메소드 실행
-			deleteFile(boardService.selectOne(bid).getFilename()); 
 			
 			int num = file.getOriginalFilename().length();
-			
-		 	System.out.println(num);
+			System.out.println(num);
 	        
 	        if(num != 0) { // file의 name 값이 비어있지 않다면
+	        	// 기존의 이미지 삭제 메소드 실행
+				deleteFile(boardService.selectOne(bid).getFilename()); 
+				
 	        	System.out.println("Filename이 비어있지 않음");
 	        	String projectPath = System.getProperty("user.dir") + "/src/main/resources/static/files"; // 저장경로 지정
 		        UUID uuid = UUID.randomUUID(); // 파일 이름에 붙일 랜덤이름 생성

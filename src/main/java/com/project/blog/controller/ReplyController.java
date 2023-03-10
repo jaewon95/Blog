@@ -43,8 +43,7 @@ public class ReplyController {
 			String referer = request.getHeader("Referer");
 			model.addAttribute("referer", referer);
 		    return "alert";
-		} 
-		
+		}
 		
 		return "redirect:/";
 		

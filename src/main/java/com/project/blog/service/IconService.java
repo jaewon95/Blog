@@ -1,5 +1,7 @@
 package com.project.blog.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,7 +16,6 @@ public class IconService {
 	
 	public int iconSetting(String act_id) {
 		return mapper.iconSetting(act_id);
-		
 	}
 	
 	public Icon userIcon(String act_id) {
@@ -23,6 +24,10 @@ public class IconService {
 	
 	public int userIconUpdate(Icon icon) {
 		return mapper.userIconUpdate(icon);
+	}
+	
+	public List<Icon> iconAll(){
+		return mapper.iconAll();
 	}
 	
 

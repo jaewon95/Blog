@@ -52,7 +52,7 @@
 		left:15px;
 		width: 40px;
 		height: 40px;
-		background-color: black;
+		background-color: beige;
 		border-radius: 50%;
 	}
 	.cardWriter {
@@ -106,7 +106,15 @@
 							<p class="card-text" th:text="${#strings.abbreviate(data.bcontent,80)}"></p> <!-- 글 본문 -->
 							<div class="cardBtn-h">
 								<div class="cardUserInfo">
-									<span class="cardImg"><img th:src="${boardIcon}"></span>
+								<th:block th:each=" icon : ${iconData}">
+									<!-- icon 테이블에 있는 act_id 와 data의 bwriter가 같을경우 담아주기 -->
+									<div th:if="${data.bwriter == icon.act_id}">
+										<span><img class="cardImg" th:src="${icon.iconSrc}"></span>
+									</div>
+									<div th:if="${data.bwriter == null}">
+										<span class="cardImg"></span>
+									</div>
+								</th:block>
 									<span class="cardWriter" th:text="${data.bwriter}"></span>
 								</div>
 								<a th:href="@{/user/detail/{data} (data = ${data.bid})}" class="btn btn-primary cardBtn">상세보기</a>

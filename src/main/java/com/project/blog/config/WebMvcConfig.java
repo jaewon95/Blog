@@ -16,7 +16,10 @@ public class WebMvcConfig implements WebMvcConfigurer {
 				.addPathPatterns("/user/update/*")
 				.addPathPatterns("/user/delete/*")
 				.addPathPatterns("/user/detail/*")
+				.addPathPatterns("/user/myPage")
+				.addPathPatterns("/user/myPage/*")
 				.addPathPatterns("/admin/*");
+				
 //				.excludePathPatterns("/경로") // 해당 경로는 인터셉터가 가로채지 않는다
 		
 		

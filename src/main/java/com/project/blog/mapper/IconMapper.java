@@ -1,5 +1,7 @@
 package com.project.blog.mapper;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
@@ -22,7 +24,9 @@ public interface IconMapper {
 	int userIconUpdate(Icon icon);
 	// 아이콘 변경
 	
-	
+	// 게시글 작성자의 아이콘 찾기
+	@Select("SELECT i.act_id, i.iconSrc FROM icon i JOIN board b on i.act_id = b.bwriter")
+	List<Icon> iconAll(); 
 	
 	
 

@@ -47,6 +47,16 @@ public class AccountService {
 	public Account newUserSearch() {
 		return accountMapper.newUserSearch();
 	}
+	
+	// 현재 로그인한 유저의 pw 정보
+	public String selectPassword(String act_id) {
+		return accountMapper.selectPassword(act_id);
+	};
+	
+	// 비밀번호 수정하기
+	public int passwordUpdate(Account act) {
+		return accountMapper.passwordUpdate(act);
+	}
 	 
 
 }
