@@ -12,8 +12,8 @@ public class PageMaker {
 	// 마지막 페이지는 항상 유동적임
 	// 11 [12] ,  11 12 13 [14]
 	// 이렇게 끝나기도 하니까
-	private boolean prev; // true면 이전버튼 생성 false 는 ㄴㄴ
-	private boolean next; // true면 다음버튼 생성 false 는 ㄴㄴ
+	private boolean prev; // true면 이전버튼 생성
+	private boolean next; // true면 다음버튼 생성 
 	private int displayPageNum=5; // 몇개씩 보여줄거냐 이거임
 	
 	// 총 게시글의 수를 구하는 메서드

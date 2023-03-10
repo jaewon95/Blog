@@ -94,18 +94,12 @@
 			boardContent.focus();
 			return false;
 		}
-		
-		
 	})
-	
-	
-	
 	
 	// 뒤로가기 
 	cancelBtn.addEventListener('click',function() {
 		location.href="/"
 	});
-	
 	
 	// 이미지 업로드	
 	let photoDelBtn = document.querySelector('.photo');
@@ -114,7 +108,6 @@
 	photoDelBtn.addEventListener('click', function(){
 		document.querySelector('.image_container').replaceChildren();
 	});
-	
 	
 	function setThumbnail(event){
 		

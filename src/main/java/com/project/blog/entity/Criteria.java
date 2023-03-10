@@ -14,11 +14,6 @@ public class Criteria {
 		return (page-1) * perPageNum;
 	}
 	
-	// 스프링 Bean의 특징 = DI
-	// set, get을 다 만들지 않아도 사용이 가능함 BoardMapper에서 #{pageStart}를 
-	// 사용가능한 이유임
-	// 강의 : https://www.youtube.com/watch?v=bYu9MNLBvX0
-	
 	// 현재 페이지의 글 시작 번호 구하기
 	//public int getPageStart() { // 1페이지, 2페이지, 3페이지
 	//	return (page-1) * perPageNum; // 0*10=0~, 1*10=10~, 2*10=20~ : 
