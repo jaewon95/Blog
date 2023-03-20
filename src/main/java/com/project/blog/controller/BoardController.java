@@ -30,9 +30,6 @@ public class BoardController {
 	private BoardService boardService;
 	
 	@Autowired
-	private AccountService accountService;
-	
-	@Autowired
 	private ReplyService replyService;
 	
 	@Autowired
